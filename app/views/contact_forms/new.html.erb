@@ -1,0 +1,66 @@
+<section class="contact-page pt-0 w-100">
+  <div class="container">
+    <div class="row section-b-space">
+      <div class="col-lg-7 map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29109.64308141804!2d55.72843861569736!3d24.21709579911115!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e8ab6cb2c5bf209%3A0x6182f894eed47097!2sEmirates%20Post%20-%20Al%20Ain%20Central%20Post%20Office!5e0!3m2!1sen!2sph!4v1609175562191!5m2!1sen!2sph" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+      </div>
+      <div class="col-lg-5">
+        <div class="contact-right">
+          <ul>
+            <li>
+              <div class="contact-icon">
+                <i class="fa fa-info" aria-hidden="true"></i>
+                <h6><%= t('footer.about_us.title') %></h6>
+              </div>
+              <div class="media-body">
+                <p><%= t('pages.company') %></p>
+                <p><%= t('pages.country') %></p>
+              </div>
+            </li>
+            <li>
+              <div class="contact-icon">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <h6><%= t('pages.address_label') %></h6>
+              </div>
+              <div class="media-body">
+                <p><%= t('pages.address_complete') %></p>
+              </div>
+            </li>
+            <li>
+              <div class="contact-icon">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <h6><%= t('footer.service.contact_us') %></h6>
+              </div>
+              <div class="media-body">
+                <p>
+                  <a href="<%= t('pages.messenger_link') %>" target="_blank">
+                    <i class="fa fa-comments pr-1" aria-hidden="true"></i>
+                    <%= t('pages.chat_with_us') %>
+                  </a>
+                </p>
+                <p>
+                  <a href="<%= t('pages.messenger_link') %>" target="_blank">
+                    <i class="fa fa-whatsapp pr-1" aria-hidden="true"></i>
+                    <%= t('pages.whatsapp') %>
+                  </a>
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="contact-icon">
+                <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                <h6><%= t('pages.email_label') %></h6>
+              </div>
+              <div class="media-body">
+                <a href="mailto:<%= t('pages.email') %>" target="_blank">
+                  <%= t('pages.email_instruction', email: t('pages.email')) %>
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--Section ends-->
