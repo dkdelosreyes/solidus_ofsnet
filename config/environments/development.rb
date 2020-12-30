@@ -1,3 +1,11 @@
+default_url_options = Rails.application.routes.default_url_options
+
+app_host = ENV.fetch('NGROK_HOST', ENV.fetch('URL_HOST', 'http://my.lvh.me'))
+default_url_options[:host] = app_host
+default_url_options[:protocol] = app_host.to_s.starts_with?('https') ? 'https' : 'http'
+
+Rails.application.routes.default_url_options = default_url_options
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -9,7 +17,7 @@ Rails.application.configure do
   # Do not eager load code on boot.
   config.eager_load = false
 
-  # Show full error reports.
+  # Show full error reports. Conceal error pages
   config.consider_all_requests_local = true
 
   # Enable/disable caching. By default caching is disabled.
@@ -33,8 +41,26 @@ Rails.application.configure do
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.delivery_method = :smtp
 
   config.action_mailer.perform_caching = false
+
+  if ENV['SMTP_MAILHOG'].present?
+    config.action_mailer.smtp_settings = { address: 'localhost', port: 1025 }
+    config.action_mailer.smtp_settings   = { address: ENV.fetch('SMTP_MAILHOG',"localhost"), port: 1025, domain: 'lvh.me' }
+    config.action_mailer.default_options = { from: 'info@lvh.me', reply_to: 'noreply@lvh.me' }
+  else
+    config.action_mailer.default_url_options = { :host => 'localhost:3000', protocol: 'http' }
+    config.action_mailer.smtp_settings   = {
+      address:        ENV["SMTP_ADDRESS"],
+      port:           587,
+      domain:         ENV["SMTP_DOMAIN"],
+      user_name:      ENV["SMTP_USER"],
+      password:       ENV["SMTP_PASSWORD"],
+      authentication: 'plain',
+      enable_starttls_auto: true
+    }
+  end
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

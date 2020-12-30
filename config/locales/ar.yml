@@ -1,0 +1,94 @@
+ar:
+  nav:
+    email_us: 'راسلنا عبر البريد الإلكتروني: %{email}'
+    call_us: 'اتصل بنا:%{phone}'
+  taxonomies:
+    bags: أكياس
+    watches: ساعات
+    shoes: أحذية
+    accessories: مستلزمات
+  home:
+    country: بلد
+    language: لغة
+    welcome: مرحبًا بكم في One FAB Shop
+    shop_for_her: تسوق لها
+    shop_for_him: تسوق له
+    collection_1:
+      line1: خصم 10٪ كحد أدنى
+      line2: أكياس
+    collection_2:
+      line1: انقاذ ما يصل إلى 30٪ قبالة
+      line2: تخفيض السعر
+    collection_3:
+      line1: خصم 5٪ كحد أدنى
+      line2: ساعات
+    trending_products: تتجه المنتجات
+  service:
+    shipping:
+      title: التسليم على الصعيد الوطني
+      desc: نحن نقدم التوصيل على الصعيد الوطني في كل من الفلبين والإمارات العربية المتحدة.
+    service:
+      title: خدمة 24 × 7
+      desc: متجرنا على الإنترنت متاح 24 × 7 لخدمتك.
+    offers:
+      title: عناصر أصلية
+      desc: هل تبحث عن عناصر أصلية بسعر أقل؟ وصلنا لك!
+    payments:
+      title: الدفع الآمن
+      desc: نحن متكاملون مع بوابات الدفع القياسية في الصناعة.
+  footer:
+    newsletter:
+      title: تعرف على كل شيء أولاً!
+      desc: لا تفوت أي شيء من One FAB Shop من خلال التسجيل في النشرة الإخبارية لدينا.
+    about: حول
+    about_us:
+      title: معلومات عنا
+      who: من نحن
+      terms: البنود و الظروف
+      privacy: سياسة خاصة
+      disclosure: الإفصاح المسؤول
+      promotions: الترقيات
+    service:
+      title: خدمات
+      secure: تسوق آمن
+      shipping: الشحن على الصعيد الوطني
+      faq: التعليمات
+      products: منتجات
+      contact_us: اتصل بنا
+
+    store_info:
+      title: معلومات المتجر
+      location: أبو ظبي - طريق العين ، ريمة - أبو ظبي - الإمارات العربية المتحدة
+    company_desc: One Fab Shop هو متجرك الرائع رقم 1 حيث يمكنك العثور على عناصر المصممين الأصليين الحصرية ،
+       من الحقائب إلى الإكسسوارات بسعر معقول جدًا. استمتع بتجربة تسوق رائعة معنا.
+       أرسل لنا رسالة الآن لمعرفة المزيد من صفقاتنا اليومية التي لن ترغب أبدًا في تفويتها!
+
+  buttons:
+    shop_now: تسوق الآن
+    view_cart: عرض عربة التسوق
+    view_more: عرض المزيد
+    subscribe: الإشتراك
+    back: عودة
+  forms:
+    enter_email: أدخل بريدك الإلكتروني
+  spree:
+    i18n:
+      available_locales: Available Locales
+      fields: Fields
+      language: Language
+      localization_settings: Localization Settings
+      only_complete: Only complete
+      only_incomplete: Only incomplete
+      select_locale: Select locale
+      show_only: Show only
+      supported_locales: Supported Locales
+      this_file_language: Arabic
+      translations: Translations
+    home: الصفحة الرئيسية
+    login: تسجيل الدخول
+    register: تسجيل
+    logout: تسجيل خروج
+    my_account: حسابي
+    no_products_found: لا توجد منتجات
+    admin:
+      checkout: الدفع

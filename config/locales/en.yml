@@ -1,33 +1,178 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at https://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  nav:
+    email_us: 'Email Us: %{email}'
+    call_us: 'Call Us: %{phone}'
+    country:
+      AE: UAE
+      PH: Philippines
+  taxonomies:
+    bags: Bags
+    watches: Watches
+    shoes: Shoes
+    accessories: Accessories
+  home:
+    country: Country
+    language: Language
+    welcome: Welcome to One FAB Shop
+    shop_for_her: Shop for her
+    shop_for_him: Shop for him
+    collection_1:
+      line1: Minimum 10% Off
+      line2: Bags
+    collection_2:
+      line1: save up to 30% off
+      line2: Sale
+    collection_3:
+      line1: Minimum 5% Off
+      line2: Watches
+    trending_products: Trending Products
+  service:
+    shipping:
+      title: nationwide delivery
+      desc: We provide nationwide delivery both in Philippines and UAE.
+    service:
+      title: 24 X 7 service
+      desc: Our online store is available 24 x 7 to serve you.
+    offers:
+      title: Authentic items
+      desc: Looking for authentic items for less? We got you!
+    payments:
+      title: Secured Payment
+      desc: We are integrated with industry-standard payment gateways.
+  products:
+    details: Product Details
+    share: Share It
+    video: Video
+  footer:
+    newsletter:
+      title: KNOW IT ALL FIRST!
+      desc: Never Miss Anything From ONE FAB SHOP By Signing Up To Our Newsletter.
+    about: About
+    about_us:
+      title: About Us
+      who: Who We Are
+      terms: Terms & Conditions
+      privacy: Privacy Policy
+      disclosure: Responsible Disclosure
+      promotions: Promotions
+      return: Returns And Refund Policy
+      shipping: Shipping Policy
+    service:
+      title: Services
+      secure: Security Policy
+      shipping: Nationwide Shipping
+      faq: FAQ
+      products: Products
+      contact_us: Contact Us
+
+    store_info:
+      title: Store Information
+      location: Abu Dhabi - Al Ain Rd, Rimah - Abu Dhabi - United Arab Emirates
+    company_desc: OneFabShop is your number 1 fabulous shop where you can find exclusive AUTHENTIC designers items,
+      from bags to accessories at a very reasonable price. Have a great shopping experience with us.
+      Send us a message now to know more our daily deals you won't ever want to miss!
+
+  buttons:
+    shop_now: Shop Now
+    view_cart: View Cart
+    view_more: View More
+    subscribe: subscribe
+    continue_shopping: Continue Shopping
+    back: Back
+    backt_to_home: Back To Home
+  labels:
+    sale: Sale
+    100_secure_payment: 100% SECURE PAYMENT
+    telr_guide: Any sensitive information will not be stored in any form on this site. You will be redirected to our <b>secured payment portal</b> certified by <a href="https://www.pcisecuritystandards.org/" target="_blank">PCI Security Standards Council</a>.
+    showing_page: Showing Page %{page1} of %{page2}
+    products_per_page: "%{count} Products Per Page"
+  forms:
+    enter_email: Enter your email
+    email_guide: We will send your proof of purchase in this email. Invalid emails will not be accepted by our payment provider.
+    countries_auto_filtered: ( This is automatically filtered based on currency. )
+    terms_opt_in: By clicking Place Order, you have read and agree to our Terms and Conditions.
+  tables:
+    image: Image
+    item: Item
+    price: Price
+    quantity: Quantity
+    action: Action
+    total: Total
+  filters:
+    brand: Brand
+  telr:
+    ivp_desc: Order %{number} by %{name}
+    tran_details: Telr Transaction Details
+    tran_type: Type
+    tran_ref: Reference Number
+    tran_authmessage: Authorisation Message
+    tran_amount: Amount
+    tran_currency: Currency
+    tran_test: Mode (1 = Test, 0 = Live)
+    types:
+      void: Void
+      refund: Refund
+      sale: Sale
+      revrefund: Void Refund
+      auth: Authorize
+      release: Release
+      capture: Capture
+      revcapture: Void Capture
+  account:
+    hello: Hello, OneFABShopper!
+    desc: From your My Account Dashboard you have the ability to view a list of your orders and update your account information.
+    account_info: Account Information
+    contact_info: Contact Information
+    pay_now: Pay Now
+  devise:
+    user_sessions:
+      spree_user:
+        already_signed_out: You're already signed out
+
+  notices:
+    already_paid: Thank you! Order#%{number} has been paid already.
+    unsupported_currency: This currency is not supported by this payment method.
+    already_completed: You no longer have any pending payments. For corrections, please reach out to our customer support.
+
+  mailer:
+    get_in_touch: GET IN TOUCH
+
+  pages:
+    address_complete: Room 304, third floor, Emirates post office building, AL JAHILI, HAI AL QALAA, st - HESSA BINT MOHAMMED.
+    address: Abu Dhabi - Al Ain Rd, Rimah - Abu Dhabi - United Arab Emirates
+    address_label: Address
+    email_label: Email
+    website: https://onefabshop.net
+    company: One Fab Shop General Trading
+    country: United Arab Emirates
+    email: onefabshop8@gmail.com
+    email_instruction: You can send us an email at %{email}
+    whatsapp: 971 - 56 - 575 - 4812
+    whatsapp_link: https://wa.me/971565754812
+    chat_with_us: Chat with us!
+    messenger_link: https://www.messenger.com/t/347321215408226
+
+  errors:
+    not_found: Page Not Found
+    internal_error: Something Went Wrong
+
+  spree:
+    i18n:
+      available_locales: Available Locales
+      fields: Fields
+      language: Language
+      localization_settings: Localization Settings
+      only_complete: Only complete
+      only_incomplete: Only incomplete
+      select_locale: Select locale
+      show_only: Show only
+      supported_locales: Supported Locales
+      this_file_language: English
+      translations: Translations
+    back_to_static_pages_list: Back to pages list
+    hints:
+      spree/product:
+        embedded_video: Copy and paste the full iframe embed code from sites such as Instagram, Youtube or Vimeo.
+    admin:
+      prices:
+        any_country: United Arab Emirates (Default)
