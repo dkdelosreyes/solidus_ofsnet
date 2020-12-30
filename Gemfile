@@ -29,6 +29,8 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'solidus'
+gem 'solidus_auth_devise'
+gem 'solidus_paypal_commerce_platform'
 gem 'solidus_sitemap', github: 'solidusio-contrib/solidus_sitemap'
 gem 'solidus_static_content'
 
@@ -68,6 +70,3 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-gem 'solidus_auth_devise'
-gem 'solidus_paypal_commerce_platform'
