@@ -80,6 +80,8 @@ test:
 #
 production:
   <<: *default
-  database: solidus_ofsnet_production
-  username: solidus_ofsnet
-  password: <%= ENV['SOLIDUS_OFSNET_DATABASE_PASSWORD'] %>
+  database: <%= ENV['RDS_DATABASE'] %>
+  username: <%= ENV['RDS_USERNAME'] %>
+  password: <%= ENV['RDS_PASSWORD'] %>
+  host: <%= ENV['RDS_HOST'] %>
+  port: 5432
