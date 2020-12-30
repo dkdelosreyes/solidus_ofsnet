@@ -1,0 +1,19 @@
+<fieldset data-hook="credit_card">
+  <legend align="center"><%= t('telr.tran_details') %></legend>
+
+  <% if payment.payload.is_a?(Array) && payment.payload.size > 0 %>
+    <% payment.payload.each do |payload| %>
+      <% keys = ['tran_type', 'tran_ref', 'tran_authmessage', 'tran_amount', 'tran_currency', 'tran_test' ] %>
+      <div class="row border-bottom">
+        <div class="col-12">
+          <% keys.each do |key| %>
+            <dl>
+              <dt><%= t(key, scope: 'telr') %>:</dt>
+              <dd><%= key == 'tran_type' ? t(payload[key], scope: 'telr.types') : payload[key] %></dd>
+            </dl>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</fieldset>

@@ -4,7 +4,7 @@
     <div class="form-check">
       <label class="form-check-label">
         <%= radio_button_tag('activation_type', 'auto', activation_type == 'auto') %>
-        <%= t('.auto') %> <%= f.field_hint :promo_code_will_be_disabled %>
+        <%= t('.auto') %>
       </label>
     </div>
     <div class="form-check">
@@ -13,12 +13,13 @@
         <%= t('.single_code') %>
       </label>
     </div>
-    <div class="form-check">
+    <!-- NOTE: Removed multiple codes option for simplicity -->
+    <!-- <div class="form-check">
       <label class="form-check-label">
-        <%= radio_button_tag('activation_type', 'multiple_codes', activation_type == 'multiple_codes') %>
-        <%= t('.multiple_codes') %>
+        <%# radio_button_tag('activation_type', 'multiple_codes', activation_type == 'multiple_codes') %>
+        <%# t('.multiple_codes') %>
       </label>
-    </div>
+    </div> -->
   </div>
   <div class="col-9">
     <input name="promotion[apply_automatically]" type="hidden" value="0">

@@ -20,7 +20,8 @@
       </div>
     <% end %>
 
-    <%= render "spree/admin/taxons/attachment_forms/#{f.object.attachment_partial_name}", f: f %>
+    <!-- Removed partial, issue in heroku and it's not necessary too: spree/admin/taxons/attachment_forms/#{f.object.attachment_partial_name} -->
+    <!-- <%= render "spree/admin/taxons/attachment_forms/#{f.object.attachment_partial_name}", f: f if false %> -->
   </div>
 
   <div class="col-5">

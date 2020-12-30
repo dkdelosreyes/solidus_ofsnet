@@ -4,9 +4,9 @@
 <% required ||= nil %>
 
 <div class="input-group number-with-currency <%= "number-with-currency-with-select" unless currency %> js-number-with-currency">
-  <div class="input-group-prepend">
+  <!-- <div class="input-group-prepend">
     <span class="input-group-text number-with-currency-symbol"></span>
-  </div>
+  </div> -->
   <%= f.text_field amount_attr, value: number_to_currency(f.object.public_send(amount_attr), unit: '', delimiter: ''), class: 'form-control number-with-currency-amount', required: required %>
   <% if currency %>
     <div class="input-group-append">
@@ -15,6 +15,15 @@
       </span>
     </div>
   <% else %>
-    <%= f.select currency_attr, Spree::Config.available_currencies.map(&:iso_code), {selected: Spree::Config.currency}, {required: required, class: 'number-with-currency-select'} %>
+    <%= f.hidden_field currency_attr %>
+    <div class="input-group-append">
+      <span id="price_currency_text" class="input-group-text number-with-currency-addon" data-currency="<%= currency %>">
+      </span>
+    </div>
+
+    <!-- currencies = @available_currencies.present? ? @available_currencies : Spree::Config.available_currencies.map(&:iso_code)
+
+    f.select currency_attr, currencies, {selected: Spree::Config.currency}, {required: required, class: 'number-with-currency-select', disabled: true} -->
+
   <% end %>
 </div>

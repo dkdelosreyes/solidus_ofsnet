@@ -36,7 +36,11 @@
           <%= return_item.exchange_variant.try(:exchange_name) %>
         </td>
         <td>
-          <%= return_item.acceptance_status_errors %>
+          <% if return_item.acceptance_status_errors.is_a? Hash %>
+            <%= return_item.acceptance_status_errors.first.last %>
+          <% else %>
+            <%= return_item.acceptance_status_errors %>
+          <% end %>
         </td>
         <td>
           <span class="pill pill-<%= return_item.reception_status %>">

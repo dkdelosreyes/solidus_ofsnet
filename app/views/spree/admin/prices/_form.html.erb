@@ -15,11 +15,12 @@
         <%= f.field_container :country do %>
           <%= f.label :country %>
           <%= f.field_hint :country %>
-          <%= f.collection_select :country_iso, available_countries(restrict_to_zone: nil), :iso, :name,
-                                  {
-                                    include_blank: t(:any_country, scope: [:spree, :admin, :prices])
-                                  },
-                                  { class: 'custom-select fullwidth', disabled: !f.object.new_record? } %>
+          <% active_countries = @store_country || available_countries(restrict_to_zone: nil) %>
+          <%= f.select :country_iso,
+                      options_for_select(active_countries.map {|p| [p.name, p.iso, { 'data-currency' => @country_currency[p.iso] }]}),
+                      { include_blank: t(:any_country, scope: [:spree, :admin, :prices]) },
+                      { class: 'custom-select fullwidth', disabled: !f.object.new_record?, 'data-currency' => @default_currency }
+          %>
         <% end %>
       </div>
 
@@ -34,3 +35,23 @@
 </div>
 
 <div class="clear"></div>
+
+<script>
+  Spree.ready(function($) {
+
+    var default_currency = $("select#price_country_iso").data('currency');
+    if ($('#price_currency').val().length == 0) {
+      setCurrency(default_currency)
+    }
+
+    $("select#price_country_iso").change(function() {
+      var currency = $("select#price_country_iso").find(':selected').data('currency');
+      setCurrency(currency || default_currency);
+    });
+
+    function setCurrency(currency) {
+      $('#price_currency').val(currency)
+      $('#price_currency_text').text(currency);
+    }
+  });
+</script>

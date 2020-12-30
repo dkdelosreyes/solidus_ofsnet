@@ -22,8 +22,19 @@
       <div data-hook="admin_product_form_description">
         <%= f.field_container :description do %>
           <%= f.label :description %>
-          <%= f.text_area :description, {rows: "#{unless @product.has_variants? then '22' else '15' end}", class: 'fullwidth'} %>
+          <!-- OFS Custom modified -->
+          <%= f.text_area :description, {rows: 9, class: 'fullwidth'} %>
           <%= f.error_message_on :description %>
+        <% end %>
+      </div>
+
+      <!-- OFS Custom added -->
+      <div data-hook="admin_product_form_embedded_video">
+        <%= f.field_container :embedded_video do %>
+          <%= f.label :embedded_video %>
+          <%= f.field_hint :embedded_video %>
+          <%= f.text_area :embedded_video, {rows: 3, class: 'fullwidth'} %>
+          <%= f.error_message_on :embedded_video %>
         <% end %>
       </div>
     </div>
@@ -56,19 +67,20 @@
         <div class="clearfix"></div>
       <% end %>
 
-      <div class="row">
+      <!-- OFS Custom: I intentionally removed the cost price field here. coz its confusing -->
+      <!-- <div class="row">
 
         <div data-hook="admin_product_form_cost_price" class="col-12">
           <%= f.field_container :cost_price do %>
             <%= f.label :cost_price %>
 
-            <%= render "spree/admin/shared/number_with_currency", f: f, amount_attr: :cost_price, currency_attr: :cost_currency %>
+            <%= render "spree/admin/shared/number_with_currency", f: f, amount_attr: :cost_price, currency_attr: :cost_currency if false %>
 
-            <%= f.error_message_on :cost_price %>
-            <%= f.error_message_on :cost_currency %>
+            <%= f.error_message_on :cost_price if false %>
+            <%= f.error_message_on :cost_currency if false %>
           <% end %>
         </div>
-      </div>
+      </div> -->
 
       <div class="clear"></div>
 

@@ -2,12 +2,17 @@
 
 <% admin_breadcrumb(plural_resource_name(Spree::Order)) %>
 
-
+<!-- I intentionally removed the button to create custom order because of pricing issues -->
+<!--
+<% if false%>
 <% content_for :page_actions do %>
   <li>
     <%= link_to t('spree.new_order'), new_admin_order_url, id: 'admin_new_order', class: 'btn btn-primary' %>
   </li>
 <% end if can? :manage, Spree::Order %>
+<% end %>
+ -->
+
 
 <% content_for :table_filter_title do %>
   <%= t('spree.filter') %>
