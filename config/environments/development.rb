@@ -89,4 +89,6 @@ Rails.application.configure do
   config.hosts << "my.lvh.me"
   config.hosts << "ph.lvh.me"
   config.hosts << /[a-z0-9]+\.ngrok\.io/
+
+  config.webpacker.check_yarn_integrity = false
 end
