@@ -1,0 +1,120 @@
+<!-- DETAILS -->
+<tr>
+  <td align="center" height="100%" valign="top" width="100%" style="padding: 0 35px 35px 35px; background-color: #ffffff;" bgcolor="#ffffff">
+    <!--[if (gte mso 9)|(IE)]>
+    <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+    <tr>
+    <td align="center" valign="top" width="600">
+    <![endif]-->
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:660px;">
+      <tr>
+        <td align="center" valign="top" style="font-size:0;">
+          <!--[if (gte mso 9)|(IE)]>
+          <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+          <tr>
+          <td align="left" valign="top" width="300">
+          <![endif]-->
+          <div style="display:inline-block; max-width:100%; min-width:240px; vertical-align:top; width:100%;">
+            <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;">
+              <tr>
+                <td align="left" valign="top" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px;">
+                  <p style="font-weight: 800;"><%= t('spree.payment_information') %></p>
+                  <p>
+                    <% order.payments.valid.each do |payment| %>
+                      <%= render partial: 'spree/shared/mailers/payment', locals: { payment: payment } %><br/>
+                    <% end %>
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <!--[if (gte mso 9)|(IE)]>
+          </td>-->
+        </td>
+      </tr>
+
+      <tr>
+        <td align="center" valign="top" style="font-size:0;">
+          <!--[if (gte mso 9)|(IE)]>
+          <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+          <tr>
+          <td align="left" valign="top" width="300">
+          <![endif]-->
+          <div style="display:inline-block; max-width:100%; min-width:240px; vertical-align:top; width:100%;">
+            <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;">
+              <tr>
+                <td align="left" valign="top" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px;">
+                  <p style="font-weight: 800;"><%= t('spree.shipments') %></p>
+                  <p>
+                    <% order.shipments.each do |shipment| %>
+                      <%= t('spree.shipment_details', stock_location: shipment.stock_location.name, shipping_method: shipment.selected_shipping_rate.name) %><br />
+                    <% end %>
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <!--[if (gte mso 9)|(IE)]>
+          </td>-->
+        </td>
+      </tr>
+
+      <tr>
+        <td align="center" valign="top" style="font-size:0;">
+          <!--[if (gte mso 9)|(IE)]>
+          <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+          <tr>
+          <td align="left" valign="top" width="300">
+          <![endif]-->
+          <div style="display:inline-block; max-width:100%; min-width:240px; vertical-align:top; width:100%;">
+            <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;">
+              <tr>
+                <td align="left" valign="top" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px;">
+                  <p style="font-weight: 800;"><%= t('spree.billing_address') %></p>
+                  <p>
+                    <%= render partial: 'spree/shared/mailers/address', locals: { address: order.bill_address } %>
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <!--[if (gte mso 9)|(IE)]>
+          </td>-->
+        </td>
+      </tr>
+
+      <tr>
+        <td align="center" valign="top" style="font-size:0;">
+          <!--[if (gte mso 9)|(IE)]>
+          <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+          <tr>
+          <td align="left" valign="top" width="300">
+          <![endif]-->
+          <div style="display:inline-block; max-width:100%; min-width:240px; vertical-align:top; width:100%;">
+            <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;">
+              <tr>
+                <td align="left" valign="top" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px;">
+                  <p style="font-weight: 800;"><%= t('spree.shipping_address') %></p>
+                  <p>
+                    <%= render partial: 'spree/shared/mailers/address', locals: { address: order.ship_address } %>
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <!--[if (gte mso 9)|(IE)]>
+          </td>
+          </tr>
+          </table>
+          <![endif]-->
+        </td>
+      </tr>
+    </table>
+    <!--[if (gte mso 9)|(IE)]>
+    </td>
+    </tr>
+    </table>
+    <![endif]-->
+  </td>
+</tr>
+<!-- /DETAILS -->

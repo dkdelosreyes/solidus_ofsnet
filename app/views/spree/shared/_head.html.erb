@@ -1,13 +1,37 @@
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S6M0NN6FJ7 %>"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-S6M0NN6FJ7');
+
+  <%= yield :gtag %>
+</script>
+
 <meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="OneFabShop is your number 1 fabulous shop where you can find exclusive AUTHENTIC designers items, from bags to accessories at a very reasonable price">
+<meta name="keywords" content="onefabshop">
+<meta name="author" content="onefabshop">
+
 <title><%= title %></title>
-<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-<meta content="width=device-width, initial-scale=1.0, maximum-scale=1" name="viewport">
+
 <%== meta_data_tags %>
 <%= canonical_tag(current_store.url) %>
-<%= favicon_link_tag 'favicon.ico' %>
-<%= stylesheet_link_tag 'spree/frontend/all', media: 'screen' %>
+<%= favicon_link_tag 'ofs.ico' %>
+
+<!--Google font-->
+<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+
+<!-- <%= stylesheet_link_tag 'spree/frontend/all', media: 'screen' %> -->
+<%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 <%= csrf_meta_tags %>
 <%= javascript_include_tag 'spree/frontend/all' %>
+<%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 <!--[if lt IE 9]>
   <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
 <![endif]-->

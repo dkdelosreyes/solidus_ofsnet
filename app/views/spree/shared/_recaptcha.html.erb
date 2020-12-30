@@ -1,0 +1,5 @@
+<% if @show_checkbox_recaptcha %>
+  <%= recaptcha_tags site_key: ENV['RECAPTCHA_SITE_KEY_V2'] %>
+<% else %>
+  <%= recaptcha_v3 action: action %>
+<% end %>

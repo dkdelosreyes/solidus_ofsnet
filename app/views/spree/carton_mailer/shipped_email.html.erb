@@ -1,0 +1,96 @@
+<!-- BANNER AND TABLE -->
+<tr>
+  <td align="center" style="padding: 0px 35px 20px 35px; background-color: #ffffff;" bgcolor="#ffffff">
+    <!--[if (gte mso 9)|(IE)]>
+    <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+    <tr>
+    <td align="center" valign="top" width="600">
+    <![endif]-->
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;">
+
+      <!-- BANNER -->
+      <tr>
+        <td align="center" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding-top: 25px;">
+          <h2 style="font-size: 20px; font-weight: 800; line-height: 36px; color: #333333; margin: 0;">
+            <%= t('spree.shipment_mailer.shipped_email.instructions') %>
+          </h2>
+        </td>
+      </tr>
+      <tr>
+        <td align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding-top: 10px;">
+          <p style="font-size: 16px; font-weight: 400; line-height: 24px; color: #777777;">
+            <%= t('spree.shipment_mailer.shipped_email.shipment_summary') %>
+          </p>
+        </td>
+      </tr>
+      <!-- /BANNER -->
+
+      <tr>
+        <td align="left" style="padding-top: 10px;">
+          <table cellspacing="0" cellpadding="0" border="0" width="100%">
+            <tr>
+              <td width="20%" align="left" bgcolor="#eeeeee" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;">
+                <%= t('spree.sku')%>
+              </td>
+              <td width="60%" align="left" bgcolor="#eeeeee" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;">
+                <%= t('spree.product')%>
+              </td>
+              <td width="20%" align="left" bgcolor="#eeeeee" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;">
+                <%= t('spree.variant')%>
+              </td>
+            </tr>
+
+            <% @manifest.each do |item| %>
+              <tr>
+                <td width="20%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;">
+                  <%= item.variant.sku %>
+                </td>
+                <td width="60%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;">
+                  <%= item.variant.product.name %>
+                </td>
+                <td width="20%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;">
+                  <%= item.variant.options_text %>
+                </td>
+              </tr>
+            <% end %>
+          </table>
+        </td>
+      </tr>
+
+      <% if @carton.tracking %>
+        <tr>
+          <td align="left" style="padding-top: 20px;">
+            <table cellspacing="0" cellpadding="0" border="0" width="100%">
+              <tr>
+                <td width="100%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px; border-top: 3px solid #eeeeee;">
+                  <%= t('spree.shipment_mailer.shipped_email.track_information', tracking: @carton.tracking) %>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      <% end %>
+
+      <% if @carton.tracking_url %>
+        <tr>
+          <td align="left">
+            <table cellspacing="0" cellpadding="0" border="0" width="100%">
+              <tr>
+                <td width="100%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; padding-left: 10px; padding-right: 10px; padding-bottom: 10px;  border-bottom: 3px solid #eeeeee">
+                  <%= t('spree.shipment_mailer.shipped_email.track_link', url: @carton.tracking_url) %>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      <% end %>
+
+    </table>
+    <!--[if (gte mso 9)|(IE)]>
+    </td>
+    </tr>
+    </table>
+    <![endif]-->
+  </td>
+</tr>
+<!-- /BANNER AND TABLE -->

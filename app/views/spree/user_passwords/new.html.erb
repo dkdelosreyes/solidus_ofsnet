@@ -1,0 +1,23 @@
+<div class="pwd-page w-100 pt-0">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-lg-6 offset-lg-3">
+        <h2><%= I18n.t('spree.forgot_password') %></h2>
+        <p><%= I18n.t('spree.instructions_to_reset_password') %></p>
+        <div class="theme-form">
+          <%= form_for Spree::User.new, as: :spree_user, url: spree.reset_password_path do |f| %>
+            <div class="form-row">
+              <div class="col-md-12">
+                 <%= f.email_field :email, required: true, class: 'form-control', placeholder: 'Enter Your Email' %>
+              </div>
+              <%= render partial: 'spree/shared/recaptcha', locals: { action: 'password_recover' } %>
+              <%= f.submit I18n.t('spree.reset_password'), class: 'btn btn-solid mt-3' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,27 +1,64 @@
-<% filters = applicable_filters_for(@taxon) %>
+<% filters = ofs_applicable_filters_for(@taxon) %>
 <% unless filters.empty? %>
+
   <%= form_tag '', method: :get, id: 'sidebar_products_search' do %>
     <%= hidden_field_tag 'per_page', params[:per_page] %>
     <% filters.each do |filter| %>
-      <% labels = filter[:labels] || filter[:conds].map {|m,c| [m,m]} %>
-      <% next if labels.empty? %>
-      <div class="navigation" data-hook="navigation">
-        <h6 class="filter-title"> <%= filter[:name] %> </h6>
-        <ul class="filter_choices">
-          <% labels.each do |nm,val| %>
-            <% label = "#{filter[:name]}_#{nm}".gsub(/\s+/,'_') %>
-            <li class="nowrap">
-              <input type="checkbox"
-                     id="<%= label %>"
-                     name="search[<%= filter[:scope].to_s %>][]"
-                     value="<%= val %>"
-                     <%= params[:search] && params[:search][filter[:scope]] && params[:search][filter[:scope]].include?(val.to_s) ? "checked" : "" %> />
-              <label class="nowrap" for="<%= label %>"> <%= nm %> </label>
-            </li>
-          <% end %>
-        </ul>
-      </div>
+
+      <% if filter[:scope] == :ofs_price_range_any %>
+        <div class="collection-collapse-block border-0 open">
+          <h3 class="collapse-block-title"><%= filter[:name] %></h3>
+          <div class="collection-collapse-block-content">
+            <div class="wrapper mt-3">
+              <div class="range-slider">
+                <% default = params[:search] && params[:search][:ofs_price_range_any].present? ? params[:search][:ofs_price_range_any].first.split(';') : '' %>
+                <input type="text" class="js-range-slider" name="search[<%= filter[:scope].to_s %>][]"
+                  value=""
+                  data-from="<%= default[0] %>"
+                  data-to="<%= default[1] %>"
+                  data-max="<%= @max_price %>"
+                  data-prefix=" "
+                  data-prettify-enabled="true"
+                  data-prettify-separator="," />
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <% else %>
+
+        <% labels = filter[:labels] || filter[:conds].map {|m,c| [m,m]} %>
+        <% next if labels.empty? %>
+
+        <div class="collection-collapse-block open">
+          <h3 class="collapse-block-title"><%= filter[:name] %></h3>
+
+          <div class="collection-collapse-block-content">
+            <div class="collection-brand-filter">
+
+            <% labels.each do |nm,val| %>
+              <% label = "#{filter[:name]}_#{nm}".gsub(/\s+/,'_') %>
+
+              <div class="custom-control custom-checkbox collection-filter-checkbox">
+                <input type="checkbox"
+                   id="<%= label %>"
+                   class="custom-control-input"
+                   name="search[<%= filter[:scope].to_s %>][]"
+                   value="<%= val %>"
+                   <%= params[:search] && params[:search][filter[:scope]] && params[:search][filter[:scope]].include?(val.to_s) ? "checked" : "" %> />
+
+                <label class="custom-control-label" for="<%= label %>"><%= nm %> </label>
+              </div>
+
+            <% end %>
+            </div>
+          </div>
+
+        </div>
+      <% end %>
+
+
     <% end %>
-    <%= submit_tag t('spree.search'), name: nil %>
+    <%= submit_tag t('spree.search'), name: nil, class: 'btn btn-solid btn-block' %>
   <% end %>
 <% end %>

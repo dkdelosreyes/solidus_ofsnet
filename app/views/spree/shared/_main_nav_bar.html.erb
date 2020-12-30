@@ -1,12 +1,56 @@
-<nav class="columns sixteen">
-  <ul id="main-nav-bar" class="inline" data-hook>
-    <li id="home-link" data-hook><%= link_to t('spree.home'), spree.root_path %></li>
-    <li id="link-to-cart" data-hook>
-      <noscript>
-        <%= link_to t('spree.cart'), spree.cart_path %>
-      </noscript>
-      &nbsp;
-    </li>
-  </ul>
-  <script>Spree.fetch_cart('<%= j spree.cart_link_path %>')</script>
-</nav>
+<div class="main-menu" dir="<%= @dir %>">
+
+  <div class="menu-left">
+    <div class="brand-logo">
+      <a href="<%= url_for(spree.root_path) %>"><img src="<%= asset_pack_path 'media/images/ofs/ofslogo.png' %>" class="img-fluid blur-up lazyload" alt=""></a>
+    </div>
+  </div>
+
+  <div class="menu-right pull-right">
+    <div>
+      <%= render partial: 'spree/shared/taxonomies' %>
+    </div>
+
+    <div>
+      <div class="icon-nav">
+        <ul>
+          <li class="onhover-div mobile-search">
+            <div>
+              <i class="ti-search fa-2x" data-toggle="modal" data-target="#search-overlay"></i>
+            </div>
+          </li>
+
+          <% order = current_order %>
+          <li class="onhover-div mobile-cart">
+            <div class="position-relative">
+              <i class="ti-shopping-cart fa-2x"></i>
+              <% if !order.nil? && !order.item_count.zero? %>
+                <div class="pointer-badge"><%= order.item_count %></div>
+              <% end %>
+            </div>
+
+            <ul class="show-div shopping-cart <%= @dir %>">
+              <% if order %>
+                <li>
+                  <div class="total">
+                    <h5><%= t('spree.total') %> : <span><%= "#{order.total} #{order.currency}" if order %></span></h5>
+                  </div>
+                </li>
+                <li>
+                  <div class="buttons">
+                    <a href="<%= spree.cart_path %>" class="view-cart"><%= t('buttons.view_cart') %></a>
+                    <a href="<%= spree.checkout_path %>" class="checkout"><%= t('spree.admin.checkout')%></a></div>
+                </li>
+              <% else %>
+                <li class="text-center">
+                  <p><%= t('spree.empty_cart') %></p>
+                </li>
+              <% end %>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>

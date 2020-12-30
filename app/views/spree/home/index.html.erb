@@ -1,12 +1,7 @@
-<% content_for :sidebar do %>
-  <div data-hook="homepage_sidebar_navigation">
-    <%= render partial: 'spree/shared/taxonomies' %>
-  </div>
-<% end %>
+<%= render partial: 'spree/home/home_slider' %>
 
-<div data-hook="homepage_products">
-  <% cache(cache_key_for_products) do %>
-    <%= render partial: 'spree/shared/products', locals: { products: @products } %>
-  <% end %>
-</div>
+<%= render partial: 'spree/home/collection' %>
 
+<%= render partial: 'spree/home/tab_product', locals: { selected_pricing_options: current_pricing_options } %>
+
+<%= render partial: 'spree/home/service' %>

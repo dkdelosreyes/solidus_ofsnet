@@ -1,0 +1,54 @@
+<% currency = order.currency %>
+
+<% order.line_items.each do |item| %>
+<%= item.variant.sku %> <%= raw(item.variant.product.name) %> <%= raw(item.variant.options_text) -%> (<%=item.quantity%>) <%= "#{item.amount} #{currency}" %>
+<% end %>
+============================================================
+<%= t('spree.subtotal') %> <%= "#{order.item_total} #{currency}" %>
+
+<% if order.line_item_adjustments.exists? %>
+  <% if order.all_adjustments.promotion.eligible.exists? %>
+    <% order.all_adjustments.promotion.eligible.group_by(&:label).each do |label, adjustments| %>
+<%= t('spree.promotion') %>: <%= label %> <%= "#{adjustments.sum(&:amount)} #{currency}" %>
+    <% end %>
+  <% end %>
+<% end %>
+<% order.shipments.group_by { |s| s.selected_shipping_rate.try(:name) }.each do |name, shipments| %>
+<%= t('spree.shipping') %>: <%= name %> <%= "#{shipments.sum(&:total_before_tax)} #{currency}" %>
+<% end %>
+<% if order.all_adjustments.eligible.tax.exists? %>
+  <% order.all_adjustments.eligible.tax.group_by(&:label).each do |label, adjustments| %>
+<%= t('spree.tax') %>: <%= label %> <%= "#{adjustments.sum(&:amount)} #{currency}" %>
+  <% end %>
+<% end %>
+<% order.adjustments.eligible.each do |adjustment| %>
+  <% next if (adjustment.source_type == 'Spree::TaxRate') and (adjustment.amount == 0) %>
+<%= adjustment.label %> <%= "#{adjustment.amount} #{currency}" %>
+<% end %>
+============================================================
+<%= t('spree.total') %> <%= "#{order.order_total_after_store_credit} #{currency}" %>
+
+
+============================================================
+<%= t('spree.billing_address') %>
+============================================================
+<%= render partial: 'spree/shared/mailers/address', locals: { address: order.bill_address } %>
+
+============================================================
+<%= t('spree.shipping_address') %>
+============================================================
+<%= render partial: 'spree/shared/mailers/address', locals: { address: order.ship_address } %>
+
+============================================================
+<%= t('spree.shipments') %>
+============================================================
+<% order.shipments.each do |shipment| %>
+<%= t('spree.shipment_details', stock_location: shipment.stock_location.name, shipping_method: shipment.selected_shipping_rate.name) %>
+<% end %>
+
+============================================================
+<%= t('spree.payment_information') %>
+============================================================
+<% order.payments.valid.each do |payment| %>
+<%= render payment %>
+<% end %>

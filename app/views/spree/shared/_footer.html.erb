@@ -1,6 +1,116 @@
-<footer id="footer" class="sixteen columns" data-hook>
-  <div id="footer-left" class="columns alpha eight" data-hook>
-    <p><%= t 'spree.powered_by' %> <%= link_to 'Solidus', 'http://solidus.io/' %></p>
-  </div>
-  <div id="footer-right" class="columns omega eight" data-hook></div>
-</footer>
+<!-- footer -->
+  <footer class="footer-light">
+    <!-- TODO: support subscribe -->
+    <div class="light-layout d-none">
+      <div class="container">
+        <section class="small-section border-section border-top-0" dir="<%= @dir %>">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="subscribe <%= @dir %>">
+                <div>
+                  <h4><%= t('footer.newsletter.title') %></h4>
+                  <p><%= t('footer.newsletter.desc') %></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <form
+                action="#"
+                class="form-inline subscribe-form auth-form needs-validation" method="post"
+                id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
+                <div class="form-group mx-sm-3">
+                  <input type="text" class="form-control p-4" name="EMAIL" id="mce-EMAIL"
+                    placeholder="<%= t('forms.enter_email') %>" required="required">
+                </div>
+                <button type="submit" class="btn btn-solid" id="mc-submit"><%= t('buttons.subscribe') %></button>
+              </form>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+    <section class="section-b-space light-layout" dir="<%= @dir %>">
+      <div class="container">
+        <div class="row footer-theme partition-f <%= @dir %>">
+          <div class="col-lg-4 col-md-6">
+            <div class="footer-title footer-mobile-title">
+              <h4><%= t('footer.about') %></h4>
+            </div>
+            <div class="footer-contant">
+              <div class="footer-logo"><img src="<%= asset_pack_path 'media/images/ofs/ofslogo.png' %>" alt=""></div>
+              <p><%= t('footer.company_desc') %></p>
+              <div class="footer-social">
+                <ul>
+                  <li>
+
+                    <a href="https://m.facebook.com/onefabshop.ae/" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                  <li><a href="https://instagram.com/onefabshop_general_trading" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                  <li><a href="<%= t('pages.whatsapp_link') %>" target="_blank"><i class="fa fa-whatsapp" aria-hidden="true"></i></a></li>
+                  <li><a href="<%= t('pages.messenger_link') %>" target="_blank"><i class="fa fa-comments" aria-hidden="true"></i></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col offset-xl-1 footer-items">
+            <div class="sub-title">
+              <div class="footer-title">
+                <h4><%= t('footer.about_us.title') %></h4>
+              </div>
+              <div class="footer-contant">
+                <ul>
+                  <ul><%= render partial: "spree/static_content/static_content_list", collection: Spree::Page.by_store(current_store).visible.footer_links, as: :page, cached: true %></ul>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col footer-items">
+            <div class="sub-title">
+              <div class="footer-title">
+                <h4><%= t('footer.service.title') %></h4>
+              </div>
+              <div class="footer-contant">
+                <ul>
+                  <li><%= link_to t('footer.service.contact_us'), Rails.application.routes.url_helpers.contactus_path %></li>
+                  <li><%= link_to t('footer.service.products'), spree.products_path %></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col footer-items">
+            <div class="sub-title">
+              <div class="footer-title">
+                <h4><%= t('footer.store_info.title') %></h4>
+              </div>
+              <div class="footer-contant">
+                <ul class="contact-list">
+                  <li>
+                    <i class="fa fa-map-marker"></i>
+                    <%= t('pages.address_complete') %>
+                  </li>
+                  <li><i class="fa fa-whatsapp"></i><%= t('pages.whatsapp') %></li>
+                  <li class="text-lowercase"><i class="fa fa-envelope-o"></i><%= t('pages.email') %></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="sub-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-6 col-md-6 col-sm-12">
+            <div class="footer-end" dir="<%= @dir %>">
+              <p><i class="fa fa-copyright" aria-hidden="true"></i> <%= Time.now.year %> <%= t('pages.company') %></p>
+            </div>
+          </div>
+          <div class="col-xl-6 col-md-6 col-sm-12">
+            <div class="payment-card-bottom">
+              <%= render partial: 'spree/shared/payment_icons' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- footer end

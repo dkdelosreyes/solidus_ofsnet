@@ -1,0 +1,16 @@
+<div class="form-row">
+  <div class="col-md-6">
+    <%= f.label :email, I18n.t('spree.email') %>
+    <%= f.email_field :email, class: 'title form-control', placeholder: "Email", required: true %>
+  </div>
+</div>
+<div class="form-row">
+  <div class="col-md-6">
+    <%= f.label :password, I18n.t('spree.password') %><br />
+    <%= f.password_field :password, class: 'title form-control', placeholder: "Enter your password", required: true %>
+  </div>
+  <div class="col-md-6">
+    <%= f.label :password_confirmation, I18n.t('spree.confirm_password') %><br />
+    <%= f.password_field :password_confirmation, class: 'title form-control', placeholder: "Confirm your password", required: true %>
+  </div>
+</div>

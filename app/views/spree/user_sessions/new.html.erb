@@ -1,0 +1,21 @@
+<div class="login-page w-100 pt-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6">
+        <h3><%= t('spree.login') %></h3>
+        <div class="theme-card">
+          <%= render partial: 'spree/shared/login' %>
+        </div>
+      </div>
+      <div class="col-lg-6 right-login">
+        <h3>New Customer</h3>
+        <div class="theme-card authentication-right">
+          <h6 class="title-font"><%= t('spree.create_a_new_account') %></h6>
+          <p>Sign up for a free account at our store. Registration is quick and easy. It allows you to be
+            able to order from our shop. To start shopping click register.</p>
+            <%= link_to t('spree.register'), spree.signup_path, class: 'btn btn-solid' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

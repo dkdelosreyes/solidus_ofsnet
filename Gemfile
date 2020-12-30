@@ -34,6 +34,7 @@ gem 'solidus_paypal_commerce_platform'
 gem 'solidus_sitemap', github: 'solidusio-contrib/solidus_sitemap'
 gem 'solidus_static_content'
 
+gem 'routing-filter', '~> 0.6.0'
 gem 'awesome_print'
 gem 'mini_racer'
 gem 'recaptcha'

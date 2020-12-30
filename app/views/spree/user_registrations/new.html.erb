@@ -1,0 +1,21 @@
+<%= render 'spree/shared/error_messages', target: resource %>
+
+<div class="register-page w-100 pt-0">
+  <div class="col-lg-12">
+    <h3><%= I18n.t('spree.new_customer') %></h3>
+    <div class="theme-card">
+
+      <div class="theme-form">
+        <%= form_for resource, as: :spree_user, url: spree.registration_path(resource) do |f| %>
+          <%= render partial: 'spree/shared/user_form', locals: { f: f } %>
+          <%= render partial: 'spree/shared/recaptcha', locals: { action: 'signup' } %>
+          <div class="form-row">
+            <%= f.submit I18n.t('spree.create'), class: 'btn btn-solid mt-3' %>
+          </div>
+        <% end %>
+      </div>
+
+      <%= link_to I18n.t('spree.login_as_existing'), spree.login_path %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<% source = payment.source %>
+<% if source.is_a?(Spree::CreditCard) %>
+<%= t('spree.ending_in') %> <%= source.last_digits %>
+<%= source.name %>
+
+<% elsif source.is_a?(Spree::StoreCredit) %>
+<%= payment.payment_method.name %>:
+<%= payment.display_amount %>
+
+<% else %>
+<%= payment.payment_method.name %>
+<% end %>

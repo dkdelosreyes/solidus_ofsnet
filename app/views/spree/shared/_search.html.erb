@@ -1,11 +1,44 @@
-<% @taxons = @taxon && @taxon.parent ? @taxon.parent.children : Spree::Taxon.roots %>
-<%= form_tag spree.products_path, method: :get do %>
-  <% cache [I18n.locale, @taxons] do %>
-    <%= select_tag :taxon,
-          options_for_select([[t('spree.all_departments'), '']] +
-                                @taxons.map {|t| [t.name, t.id]},
-                                @taxon ? @taxon.id : params[:taxon]), 'aria-label' => 'Taxon' %>
-  <% end %>
-  <%= search_field_tag :keywords, params[:keywords], placeholder: t('spree.search') %>
-  <%= submit_tag t('spree.search'), name: nil %>
-<% end %>
+<div class="modal fade" id="search-overlay" tabindex="-1" role="dialog" aria-labelledby="search-modal" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+
+      <div class="search-overlay d-block">
+        <div>
+          <div class="overlay-content">
+            <span class="closebtn" data-dismiss="modal" aria-label="Close">×</span>
+            <div class="container p-5">
+
+              <% @taxons = @taxon && @taxon.parent ? @taxon.parent.children : Spree::Taxon.roots %>
+              <%= form_tag spree.products_path, method: :get do %>
+                <div class="row">
+
+                  <div class="col-md-4 pr-0">
+                    <div class="form-group">
+                      <% cache [I18n.locale, @taxons] do %>
+                        <%= select_tag :taxon,
+                            options_for_select([[t('spree.all'), '']] +
+                              @taxons.map {|t| [t(t.name.parameterize.underscore.downcase, scope: 'taxonomies'), t.id]},
+                              @taxon ? @taxon.id : params[:taxon]), 'aria-label' => 'Taxon', class: 'form-control' %>
+                      <% end %>
+                    </div>
+                  </div>
+
+                  <div class="col-md-8">
+                    <div class="form-group">
+                      <%= search_field_tag :keywords, params[:keywords], placeholder: t('spree.search'), class: 'form-control' %>
+                    </div>
+                    <button type="submit" class="btn btn-primary p-0">
+                      <i class="fa fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+              <% end %>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

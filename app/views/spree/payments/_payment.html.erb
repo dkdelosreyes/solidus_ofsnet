@@ -10,9 +10,69 @@
   </span>
   <br />
   <span class="full-name"><%= source.name %></span>
+
 <% elsif source.is_a?(Spree::StoreCredit) %>
   <%= content_tag(:span, payment.payment_method.name) %>:
   <%= content_tag(:span, payment.display_amount) %>
+
+<% elsif payment.telr_gateway? %>
+  <%= content_tag(:span, payment.payment_method.name) %>
+
+  <% if payment.checkout? %>
+
+    <div class="my-2 px-3 py-4 border text-center">
+      <div class="my-3 d-inline-block bg-pci"></div>
+
+      <p class="my-2 font-weight-bold">
+        <i class="fa fa-lock"></i>
+        <%= raw t('labels.100_secure_payment') %>
+      </p>
+
+      <small class="form-text text-muted"><%= raw t('labels.telr_guide') %></small>
+
+      <% if payment.order.completed? %>
+        <div>
+          <a class="my-3 btn btn-solid" href="<%= Rails.application.routes.url_helpers.telr_pay_url(payment.order.number) %>">
+            <i class="fa fa-lock"></i>
+            <%= t('account.pay_now') %>
+          </a>
+        </div>
+      <% end %>
+
+      <div class="mt-5 payment-card-bottom">
+        <%= render partial: 'spree/shared/payment_icons' %>
+      </div>
+    </div>
+
+  <% elsif payment.completed? %>
+    <div class="mt-2">
+
+      <% if payment.payload.is_a?(Array) && payment.payload.size > 0 %>
+        <% payment.payload.each do |payload| %>
+          <% keys = ['tran_type', 'tran_ref', 'tran_authmessage', 'tran_amount', 'tran_currency' ] %>
+          <div class="row border-bottom py-2 small">
+            <div class="col-12">
+              <% keys.each do |key| %>
+                <p class="text-capitalize"><b><%= t(key, scope: 'telr') %>:</b> <%= payload[key] %></p>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+
+    </div>
+  <% end %>
+
 <% else %>
   <%= content_tag(:span, payment.payment_method.name) %>
+
+  <% if !payment.order.completed? %>
+    <div class="my-2 px-3 py-4 border text-center">
+      <p class="my-2 font-weight-bold">
+        <i class="fa fa-lock"></i>
+        <%= payment.payment_method.name %>
+      </p>
+      <small class="form-text text-muted"><%= payment.payment_method.description %></small>
+    </div>
+  <% end %>
 <% end %>

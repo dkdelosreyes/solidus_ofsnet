@@ -1,5 +1,5 @@
 <fieldset id="payment" data-hook>
-  <legend align="center"><%= t('spree.payment_information') %></legend>
+  <div class="checkout-title"><h3><%= t('spree.payment_information') %></h3></div>
   <div data-hook="checkout_payment_step">
     <% if @wallet_payment_sources.present? %>
       <div class="card_options">
@@ -62,6 +62,6 @@
 <br class="space" />
 
 <div class="form-buttons" data-hook="buttons">
-  <%= submit_tag t('spree.save_and_continue'), class: 'continue button primary' %>
+  <%= submit_tag t('spree.save_and_continue'), class: 'btn-solid btn' %>
   <script>Spree.disableSaveOnClick();</script>
 </div>

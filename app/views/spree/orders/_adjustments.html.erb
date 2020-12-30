@@ -13,7 +13,7 @@
     <tr>
       <td colspan="4" align='right'><h5><%= t('spree.shipping') %>: <%= shipment.shipping_method.name %></h5></td>
       <td colspan='2'>
-        <h5><%= shipment.display_total_before_tax %></h5>
+        <h5><%= "#{shipment.total_before_tax} #{shipment.currency}" %></h5>
       </td>
     </tr>
   <% end %>

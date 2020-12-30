@@ -1,0 +1,35 @@
+<!-- breadcrumb start -->
+<div class="breadcrumb-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="page-title">
+          <h2><%= @taxon ? @taxon.name : title %></h2>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <nav aria-label="breadcrumb" class="theme-breadcrumb">
+
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="<%= url_for spree.root_path %>">home</a></li>
+
+            <% if @taxon.blank? %>
+              <li class="breadcrumb-item"><a href="<%= url_for spree.products_path %>"><%= title %></a></li>
+
+            <% else %>
+
+              <% @taxon.ancestors.find_each do |ancestor| %>
+                <li class="breadcrumb-item">
+                  <a href="<%= url_for spree.nested_taxons_path(ancestor.permalink) %>"><%= ancestor.name %></a>
+                </li>
+              <% end %>
+
+              <li class="breadcrumb-item active" aria-current="page"><%= @taxon.name %></li>
+            <% end %>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- breadcrumb end -->

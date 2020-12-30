@@ -4,33 +4,33 @@
 <!--[if IE 8 ]>    <html class="ie ie8" lang="<%= I18n.locale %>"> <![endif]-->
 <!--[if IE 9 ]>    <html class="ie ie9" lang="<%= I18n.locale %>"> <![endif]-->
 <!--[if gt IE 9]><!--><html lang="<%= I18n.locale %>"><!--<![endif]-->
-  <head data-hook="inside_head">
-    <%= render partial: 'spree/shared/head' %>
-  </head>
-  <body class="<%= body_class %>" id="<%= @body_id || 'default' %>" data-hook="body">
+<head>
+  <%= render partial: 'spree/shared/head' %>
+</head>
+<body >
 
-    <div class="container">
+  <%= render partial: 'spree/shared/header' %>
 
-      <%= render partial: 'spree/shared/header' %>
+  <%= render partial: 'spree/shared/breadcrumb' %>
 
-      <div id="wrapper" class="row" data-hook>
+  <% if flash.any? %>
+    <%= flash_messages %>
+  <% end %>
 
-        <%= taxon_breadcrumbs(@taxon) %>
+  <section class="section-b-space ratio_asos">
+    <div class="collection-wrapper">
+      <div class="container">
+        <div class="row">
 
-        <%= render partial: 'spree/shared/sidebar' if content_for? :sidebar %>
-
-        <div id="content" class="columns <%= !content_for?(:sidebar) ? "sixteen" : "twelve omega" %>" data-hook>
-          <%= flash_messages %>
+          <%= render partial: 'spree/shared/sidebar' if content_for? :sidebar %>
           <%= yield %>
+
         </div>
-
-        <%= yield :templates %>
-
       </div>
-
-      <%= render partial: 'spree/shared/footer' %>
-
     </div>
+  </section>
 
-  </body>
+  <%= render partial: 'spree/shared/footer' %>
+
+</body>
 </html>

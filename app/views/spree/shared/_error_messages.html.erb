@@ -1,0 +1,12 @@
+<% if target && target.errors.any? %>
+  <div id="errorExplanation" class="alert alert-danger mb-3 errorExplanation"  role="alert">
+    <h4 class="alert-heading"><%= t('spree.errors_prohibited_this_record_from_being_saved', count: target.errors.count) %>:</h4>
+    <p><%= t('spree.there_were_problems_with_the_following_fields') %>:</p>
+
+    <ul>
+     <% target.errors.full_messages.each do |msg| %>
+       <li class="d-block"><%= msg %></li>
+     <% end %>
+     </ul>
+  </div>
+<% end %>

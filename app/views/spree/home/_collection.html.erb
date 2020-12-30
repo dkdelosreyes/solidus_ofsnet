@@ -1,0 +1,44 @@
+<!-- collection banner -->
+  <section class="ratio_45" dir="<%= @dir %>">
+    <div class="container">
+      <div class="row partition3">
+        <div class="col-md-4">
+          <a href="<%= url_for(products_path) %>">
+            <div class="collection-banner bg-black bg-bag <%= @dir %>">
+              <div class="contain-banner banner-3">
+                <div>
+                  <h4><%= t('home.collection_1.line1') %></h4>
+                  <h2><%= t('home.collection_1.line2') %></h2>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-md-4">
+          <a href="<%= url_for(products_path) %>">
+            <div class="collection-banner banner-center bg-theme">
+              <div class="contain-banner banner-3 text-center">
+                <div>
+                  <h4 class="<%= @dir %>"><%= t('home.collection_2.line1') %></h4>
+                  <h2 class="<%= @dir %>"><%= t('home.collection_2.line2') %></h2>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-md-4">
+          <a href="<%= url_for(products_path) %>">
+            <div class="collection-banner bg-black bg-watch <%= @dir %>">
+              <div class="contain-banner banner-3">
+                <div>
+                  <h4><%= t('home.collection_3.line1') %></h4>
+                  <h2><%= t('home.collection_3.line2') %></h2>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- collection banner end -->

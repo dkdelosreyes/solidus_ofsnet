@@ -1,0 +1,23 @@
+<!-- product section start -->
+<section class="section-b-space ratio_asos">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 product-related">
+        <h2>related products</h2>
+      </div>
+    </div>
+    <div class="row search-product">
+
+
+      <div class="col-xl-2 col-md-4 col-sm-6">
+        <%= render partial: 'spree/shared/product_box', locals: { product: @product, taxon: @taxon, selected_pricing_options: selected_pricing_options } %>
+      </div>
+
+
+
+    </div>
+  </div>
+</section>
+
+<%= render partial: 'spree/shared/quick_view' %>
+<!-- product section end -->

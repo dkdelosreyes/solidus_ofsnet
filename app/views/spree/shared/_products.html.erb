@@ -1,51 +1,86 @@
-<%
-  paginated_products = @searcher.retrieve_products if params.key?(:keywords)
-  paginated_products ||= products
-%>
+<div class="product-top-filter">
+  <%
+    paginated_products = @searcher.retrieve_products if params.key?(:keywords)
+    paginated_products ||= products
+    per_page = [12, 24, 50]
+  %>
 
-<% content_for :head do %>
-  <% if paginated_products.respond_to?(:total_pages) %>
-    <%= rel_next_prev_link_tags paginated_products %>
+  <% content_for :head do %>
+    <% if paginated_products.respond_to?(:total_pages) %>
+      <%= rel_next_prev_link_tags paginated_products %>
+    <% end %>
   <% end %>
-<% end %>
 
-<div data-hook="products_search_results_heading">
-  <% if products.empty? %>
-    <div data-hook="products_search_results_heading_no_results_found">
-      <%= t('spree.no_products_found') %>
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="filter-main-btn"><span class="filter-btn btn btn-theme"><i class="fa fa-filter"
+            aria-hidden="true"></i> Filter</span></div>
     </div>
-  <% elsif params.key?(:keywords) %>
-    <div data-hook="products_search_results_heading_results_found">
-      <h6 class="search-results-title"><%= t('spree.search_results', keywords: h(params[:keywords])) %></h6>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="product-filter-content">
+        <div class="search-count">
+          <h5><%= t('labels.showing_page', page1: params[:page] || 1, page2: paginated_products.total_pages > 0 ? paginated_products.total_pages : 1) %></h5>
+        </div>
+
+        <div class="product-page-per-view border-left">
+        </div>
+        <div class="product-page-filter">
+          <form action="<%= url_for per_page: per_page[0] %>" method="GET">
+            <select onchange="this.form.submit()">
+              <% per_page.each do |count| %>
+                <option value="<%= count %>"><%= t('labels.products_per_page', count: count) %></option>
+              <% end %>
+            </select>
+          </form>
+
+        </div>
+      </div>
     </div>
-  <% end %>
+  </div>
 </div>
 
-<% if products.any? %>
-  <ul id="products" class="inline product-listing" data-hook>
-    <% products.each do |product| %>
-      <% url = spree.product_path(product, taxon_id: @taxon.try(:id)) %>
-      <li id="product_<%= product.id %>" class="columns three <%= cycle("alpha", "secondary", "", "omega secondary", name: "classes") %>" data-hook="products_list_item" itemscope itemtype="http://schema.org/Product">
-        <% cache(@taxon.present? ? [I18n.locale, current_pricing_options, @taxon, product] : [I18n.locale, current_pricing_options, product]) do %>
-          <div class="product-image">
-            <%= link_to(render('spree/shared/image', image: product.gallery.images.first, size: :small, itemprop: "image"), url, itemprop: 'url') %>
-          </div>
-          <%= link_to truncate(product.name, length: 50), url, class: 'info', itemprop: "name", title: product.name %>
-          <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-            <% if price = product.price_for(current_pricing_options) %>
-              <span class="price selling" itemprop="price" content="<%= price.to_d %>">
-                <%= price.to_html %>
-              </span>
-            <% end %>
-            <span itemprop="priceCurrency" content="<%= current_pricing_options.currency %>"></span>
-          </span>
-        <% end %>
-      </li>
-    <% end %>
-    <% reset_cycle("classes") %>
-  </ul>
-<% end %>
+<div class="product-wrapper-grid">
+  <div class="row margin-res">
 
-<% if paginated_products.respond_to?(:total_pages) %>
-  <%= paginate paginated_products %>
-<% end %>
+    <% if products.empty? %>
+      <div class="w-100 p-2 text-center"><%= t('spree.no_products_found') %></div>
+    <% elsif params.key?(:keywords) %>
+      <div class="w-100 p-2 text-center"><%= t('spree.search_results', keywords: h(params[:keywords])) %></div>
+    <% end %>
+
+    <% if products.any? %>
+
+      <% products.each do |product| %>
+        <% cache product do %>
+          <div class="col-xl-3 col-6 col-grid-box">
+            <%= render partial: 'spree/shared/product_box', locals: { product: product, taxon: @taxon, selected_pricing_options: selected_pricing_options } %>
+          </div>
+        <% end %>
+      <% end %>
+
+    <% end %>
+
+  </div>
+</div>
+
+<div class="product-pagination">
+  <div class="theme-paggination-block">
+    <div class="row">
+      <div class="col-xl-6 col-md-6 col-sm-12">
+
+        <% if paginated_products.respond_to?(:total_pages) %>
+          <%= paginate paginated_products %>
+        <% end %>
+
+      </div>
+      <div class="col-xl-6 col-md-6 col-sm-12">
+        <div class="product-search-count-bottom">
+          <h5><%= t('labels.showing_page', page1: params[:page] || 1, page2: paginated_products.total_pages > 0 ? paginated_products.total_pages : 1) %></h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

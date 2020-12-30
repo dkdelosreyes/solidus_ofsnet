@@ -1,0 +1,36 @@
+<%= render partial: 'spree/shared/error_messages', locals: { target: @user } %>
+<div id="registration">
+
+  <div>
+    <%= render template: 'spree/user_sessions/new' %>
+  </div>
+
+  <% if Spree::Config[:allow_guest_checkout] %>
+
+    <section class="login-page section-b-space pt-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <h3><%= I18n.t('spree.guest_user_account') %></h3>
+            <div class="theme-card">
+
+              <div class="theme-form">
+                <%= form_for @order, url: update_checkout_registration_path, method: :put, html: { id: 'checkout_form_registration' } do |f| %>
+                  <div class="form-group">
+                    <%= f.label :email, t('spree.email') %>
+                    <%= f.email_field :email, class: 'title form-control', placeholder: t('spree.email') %>
+                  </div>
+
+                  <%= f.submit I18n.t('spree.continue'), class: 'btn btn-solid' %>
+
+                <% end %>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  <% end %>
+</div>

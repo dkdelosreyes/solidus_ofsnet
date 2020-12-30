@@ -1,1 +1,17 @@
-<%# solidus_auth_devise or a custom auth system can replace this partial %>
+<% if spree_current_user %>
+  <ul class="onhover-show-div">
+    <li><%= link_to t('spree.my_account'), spree.account_path %></li>
+    <li><%= link_to t('spree.logout'), spree.logout_path, method: Devise.sign_out_via %></li>
+  </ul>
+
+<% else %>
+
+  <ul class="onhover-show-div">
+    <li><%= link_to t('spree.login'), spree.login_path %></li>
+    <li><%= link_to t('spree.register'), spree.signup_path %></li>
+  </ul>
+
+<% end %>
+
+
+

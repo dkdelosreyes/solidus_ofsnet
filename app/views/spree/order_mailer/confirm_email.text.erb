@@ -1,0 +1,11 @@
+<% currency = @order.currency %>
+<%= t('spree.order_number', number: @order.number) %>
+
+<%= t('spree.thank_you_for_your_order') %>
+
+============================================================
+<%= t('.order_summary') %>
+============================================================
+<%= render partial: 'spree/shared/mailers/order_details', locals: { order: @order } %>
+
+<%= t('.thanks') %>

@@ -1,0 +1,19 @@
+<%= render 'spree/shared/error_messages', target: @user %>
+
+<div class="register-page w-100 pt-0">
+  <div class="col-lg-12">
+    <h3><%= I18n.t('spree.editing_user') %></h3>
+    <div class="theme-card">
+
+      <div class="theme-form">
+        <%= form_for Spree::User.new, as: @user, url: spree.user_path(@user), method: :put do |f| %>
+          <%= render partial: 'spree/shared/user_form', locals: { f: f } %>
+          <div class="form-row">
+            <%= f.submit t('spree.update'), class: 'btn btn-solid' %>
+          </div>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>

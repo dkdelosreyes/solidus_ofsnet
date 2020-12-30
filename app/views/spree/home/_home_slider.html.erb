@@ -1,0 +1,49 @@
+<!-- Home slider -->
+<section id="home-slider" class="p-0">
+  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner home-slider">
+
+      <div class="carousel-item home active text-center bg-home-woman" >
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <div class="slider-contain">
+                <div dir="<%= @dir %>">
+                  <h4><%= t('home.welcome') %></h4>
+                  <h1><%= t('home.shop_for_her') %></h1>
+                  <a href="<%= url_for(products_path) %>" class="btn btn-solid"><%= t('buttons.shop_now') %></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel-item home text-center bg-home-man">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <div class="slider-contain">
+                <div dir="<%= @dir %>">
+                  <h4><%= t('home.welcome') %></h4>
+                  <h1><%= t('home.shop_for_him') %></h1>
+                  <a href="<%= url_for(products_path) %>" class="btn btn-solid"><%= t('buttons.shop_now') %></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</section>
+<!-- Home slider end -->

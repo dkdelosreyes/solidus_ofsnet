@@ -1,0 +1,134 @@
+<% currency = order.currency %>
+<!-- TABLE -->
+<tr>
+  <td align="left" style="padding-top: 20px;">
+    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+      <tr>
+        <td width="10%" align="left" bgcolor="#eeeeee" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;">
+          <%= I18n.t('tables.image') %>
+        </td>
+        <td width="50%" align="left" bgcolor="#eeeeee" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;">
+          <%= t('tables.item') %>
+        </td>
+        <td width="20%" align="left" bgcolor="#eeeeee" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;">
+          <%= t('tables.quantity') %>
+        </td>
+        <td width="20%" align="left" bgcolor="#eeeeee" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;">
+          <%= t('tables.price') %>
+        </td>
+      </tr>
+
+      <% order.line_items.each do |item| %>
+        <% image = item.variant.gallery.images.first || item.variant.product.gallery.images.first || item.variant.product %>
+        <tr>
+          <td width="10%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;">
+            <%= image_tag image.attachment.url(:small), alt: '', width: "70", style: ""  %>
+          </td>
+          <td width="50%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;">
+            <%= item.variant.product.name %>
+          </td>
+          <td width="20%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;">
+            <%= item.quantity %>
+          </td>
+          <td width="20%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;">
+            <%= "#{item.amount} #{currency}" %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </td>
+</tr>
+<tr>
+  <td align="left" style="padding-top: 20px;">
+    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+      <tr>
+        <td width="60%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px;line-height: 24px; padding-left: 10px; padding-right: 10px; padding-top: 10px; border-top: 3px solid #eeeeee;">
+          <%= t('.subtotal') %>
+        </td>
+        <td width="40%" align="right" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px;line-height: 24px; padding-left: 10px; padding-right: 10px; padding-top: 10px; border-top: 3px solid #eeeeee;">
+          <%= "#{order.item_total} #{currency}" %>
+        </td>
+      </tr>
+
+      <% if order.line_item_adjustments.exists? %>
+        <% if order.line_item_adjustments.promotion.eligible.exists? %>
+          <% order.line_item_adjustments.promotion.eligible.group_by(&:label).each do |label, adjustments| %>
+            <tr>
+              <td width="60%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; padding-left: 10px; padding-right: 10px; padding-top: 10px;">
+                <%= t('spree.promotion') %>: <strong><%= label %></strong>
+              </td>
+              <td width="40%" align="right" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; padding-left: 10px; padding-right: 10px; padding-top: 10px;">
+                <%= "#{adjustments.sum(&:amount)} #{currency}" %>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <% order.shipments.group_by { |s| s.selected_shipping_rate.name }.each do |name, shipments| %>
+        <tr>
+          <td width="60%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; padding-left: 10px; padding-right: 10px; padding-top: 10px;">
+            <%= t('spree.shipping') %>: <strong><%= name %></strong>
+          </td>
+          <td width="40%" align="right" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; padding-left: 10px; padding-right: 10px; padding-top: 10px;">
+            <%= "#{shipments.sum(&:total_before_tax)} #{currency}" %>
+          </td>
+        </tr>
+      <% end %>
+
+      <% if order.all_adjustments.tax.exists? %>
+        <% order.all_adjustments.tax.group_by(&:label).each do |label, adjustments| %>
+          <tr>
+            <td width="60%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; padding-left: 10px; padding-right: 10px; padding-top: 10px;">
+              <%= t('spree.tax') %>: <strong><%= label %></strong>
+            </td>
+            <td width="40%" align="right" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; padding-left: 10px; padding-right: 10px; padding-top: 10px;">
+              <%= "#{adjustments.sum(&:amount)} #{currency}" %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+
+      <% if order.total_applicable_store_credit > 0.0 %>
+        <tr>
+          <td width="60%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; padding-left: 10px; padding-right: 10px; padding-top: 10px;">
+            <%= t('spree.store_credit.store_credit') %>
+          </td>
+          <td width="40%" align="right" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; padding-left: 10px; padding-right: 10px; padding-top: 10px;">
+            <%= "#{order.total_applicable_store_credit} #{currency}" %>
+          </td>
+        </tr>
+      <% end %>
+
+      <% if order.adjustments.eligible.exists? %>
+        <% order.adjustments.eligible.each do |adjustment| %>
+        <% next if (adjustment.source_type == 'Spree::TaxRate') and (adjustment.amount == 0) %>
+          <tr>
+            <td width="60%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; padding-left: 10px; padding-right: 10px; padding-top: 10px;">
+              <%= adjustment.label %>
+            </td>
+            <td width="40%" align="right" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; padding-left: 10px; padding-right: 10px; padding-top: 10px;">
+              <%= "#{adjustment.amount} #{currency}" %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+
+    </table>
+  </td>
+</tr>
+<tr>
+  <td align="left" style="padding-top: 20px;">
+    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+      <tr>
+        <td width="60%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px; border-top: 3px solid #eeeeee; border-bottom: 3px solid #eeeeee;">
+          <%= t('spree.order_total') %>
+        </td>
+        <td width="40%" align="right" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px; border-top: 3px solid #eeeeee; border-bottom: 3px solid #eeeeee;">
+          <%= "#{order.order_total_after_store_credit} #{currency}" %>
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<!-- /TABLE -->

@@ -1,5 +1,27 @@
-<header id="header" class="row" data-hook>
-  <figure id="logo" class="columns six" data-hook><%= logo %></figure>
-  <%= render partial: 'spree/shared/nav_bar' %>
-  <%= render partial: 'spree/shared/main_nav_bar' if store_menu? %>
+<header id="sticky" class="fixed">
+  <div class="mobile-fix-option"></div>
+
+  <div class="top-header">
+    <div class="container">
+      <div class="row">
+
+        <%= render partial: 'spree/shared/nav_bar' %>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+
+        <%= render partial: 'spree/shared/main_nav_bar' if store_menu? %>
+
+      </div>
+    </div>
+  </div>
 </header>
+
+
+<%= render partial: 'spree/shared/search' %>
+<!-- header end -->

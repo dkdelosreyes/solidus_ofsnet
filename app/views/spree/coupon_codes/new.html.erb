@@ -1,6 +1,12 @@
-<div id="coupon_code" data-hook="coupon_code">
-  <%= form_tag order_coupon_codes_path(@order), method: :post do %>
-    <%= text_field_tag :coupon_code, nil, placeholder: t("spree.coupon_code"), size: 10 %>
-    <%= submit_tag t("spree.apply_code") %>
+<div id="coupon_code" class="w-100" data-hook="coupon_code">
+  <%= form_tag order_coupon_codes_path(@order), method: :post, class: 'form-inline subscribe-form auth-form needs-validation' do %>
+
+    <div class="input-group">
+      <input name="coupon_code" type="text" class="form-control p-4 col-md-7" placeholder="<%= t('spree.coupon_code')%>">
+      <div class="input-group-append col-12 p-0 col-md-5">
+        <button class="btn btn-outline-secondary w-100" type="submit" id="mc-submit"><%= t("spree.apply_code") %></button>
+      </div>
+    </div>
+
   <% end %>
 </div>

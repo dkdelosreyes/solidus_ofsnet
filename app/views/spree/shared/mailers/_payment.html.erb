@@ -1,0 +1,57 @@
+<% source = payment.source %>
+<% if source.is_a?(Spree::CreditCard) %>
+  <span>
+    <% unless (cc_type = source.cc_type).blank? %>
+      <%= image_tag "credit_cards/icons/#{cc_type}.png" %>
+    <% end %>
+    <% if source.last_digits %>
+      <%= t('spree.ending_in') %> <%= source.last_digits %>
+    <% end %>
+  </span>
+  <br />
+  <span><%= source.name %></span>
+
+<% elsif source.is_a?(Spree::StoreCredit) %>
+  <%= content_tag(:span, payment.payment_method.name) %>:
+  <%= content_tag(:span, payment.display_amount) %>
+
+<% elsif payment.telr_gateway? %>
+  <%= content_tag(:span, payment.payment_method.name) %>
+
+  <% if payment.checkout? %>
+    <div>
+      <small><b><%= raw t('labels.100_secure_payment') %></b></small>
+      <br />
+      <small><%= raw t('labels.telr_guide') %></small>
+
+      <% if payment.order.completed? %>
+        <div>
+          <a href="<%= Rails.application.routes.url_helpers.telr_pay_url(payment.order.number) %>" target="_blank" style="font-size: 18px; font-family: Open Sans, Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; border-radius: 5px; background-color: #eb66a9; padding: 15px 30px; border: 1px solid #eb66a9; display: block; width: 100px; text-align: center; margin-top: 20px"><%= t('account.pay_now') %></a>
+        </div>
+      <% end %>
+    </div>
+
+  <% elsif payment.completed? %>
+    <div class="mt-2">
+      <dl>
+        <dt><%= t('telr.status') %>:</dt>
+        <dd><%= payment.payload['auth_message'] %></dd>
+
+        <dt><%= t('telr.tran_amount') %>:</dt>
+        <dd><%= "#{payment.payload['tran_currency']} #{payment.payload['tran_amount']}" %></dd>
+      </dl>
+    </div>
+  <% end %>
+
+<% else %>
+  <%= content_tag(:span, payment.payment_method.name) %>
+
+  <% if !payment.order.completed? %>
+    <div>
+      <p>
+        <%= payment.payment_method.name %>
+      </p>
+      <small><%= payment.payment_method.description %></small>
+    </div>
+  <% end %>
+<% end %>

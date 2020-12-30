@@ -1,9 +1,10 @@
 <%= image_tag 'credit_cards/credit_card.gif', id: 'credit-card-image' %>
 <% param_prefix = "payment_source[#{payment_method.id}]" %>
+<% billing_name = @order.try(:billing_name) || "#{@order.try(:billing_firstname)} #{@order.try(:billing_lastname)}" %>
 
 <div class="field field-required card_name" data-hook="card_name">
   <%= label_tag "name_on_card_#{payment_method.id}", t('spree.name_on_card') %>
-  <%= text_field_tag "#{param_prefix}[name]", @order.billing_name, { id: "name_on_card_#{payment_method.id}", autocomplete: "cc-name", class: 'cardName' } %>
+  <%= text_field_tag "#{param_prefix}[name]", billing_name, { id: "name_on_card_#{payment_method.id}", autocomplete: "cc-name", class: 'cardName' } %>
 </div>
 
 <div class="field field-required card_number" data-hook="card_number">

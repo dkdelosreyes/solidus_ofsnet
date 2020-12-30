@@ -1,0 +1,24 @@
+<div class="theme-form">
+  <%= form_for Spree::User.new, as: :spree_user, url: spree.create_new_session_path do |f| %>
+    <div class="form-group">
+      <%= f.label :email, t('spree.email') %>
+      <%= f.email_field :email, class: 'title form-control', placeholder: t('spree.email'), tabindex: 1, autofocus: true %>
+    </div>
+    <div class="form-group">
+      <%= f.label :password, I18n.t('spree.password') %>
+      <%= f.password_field :password, class: 'title form-control', placeholder: 'Enter your password', tabindex: 2 %>
+    </div>
+
+    <div class="form-group">
+      <%= f.check_box :remember_me, tabindex: 3 %>
+      <%= f.label :remember_me, I18n.t('spree.remember_me') %>
+      |
+      <%= link_to I18n.t('spree.forgot_password'), spree.recover_password_path %>
+    </div>
+
+    <%= render partial: 'spree/shared/recaptcha', locals: { action: 'login' } %>
+
+    <%= f.submit I18n.t('spree.login'), class: 'btn btn-solid mt-3', tabindex: 4 %>
+
+  <% end %>
+</div>

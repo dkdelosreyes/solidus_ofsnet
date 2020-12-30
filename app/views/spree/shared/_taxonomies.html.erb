@@ -1,9 +1,52 @@
 <% max_level = Spree::Config[:max_level_in_taxons_menu] || 1 %>
-<nav id="taxonomies" class="sidebar-item" data-hook>
-  <% @taxonomies.each do |taxonomy| %>
-    <% cache [I18n.locale, taxonomy, @taxon, max_level] do %>
-      <h6 class='taxonomy-root'><%= t('spree.shop_by_taxonomy', taxonomy: taxonomy.name) %></h6>
-      <%= taxons_tree(taxonomy.root, @taxon, max_level) %>
-    <% end %>
-  <% end %>
-</nav>
+  <nav id="main-nav" >
+    <div class="toggle-nav"><i class="fa fa-bars sidebar-bar"></i></div>
+    <ul id="main-menu" class="sm pixelstrap sm-horizontal nav <%= @dir %>">
+      <li>
+        <div class="mobile-back text-right">
+          <%= t('buttons.back') %>
+          <% angle = @dir == 'ltr' ? 'right' : 'left' %>
+          <i class="fa fa-angle-<%= angle %> px-2" aria-hidden="true"></i>
+        </div>
+      </li>
+      <li>
+        <a href="<%= url_for(spree.root_path) %>" class=""><%= t('spree.home') %></a>
+      </li>
+
+      <% if @taxonomies.present? %>
+        <% @taxonomies.each do |taxonomy| %>
+          <% cache [I18n.locale, taxonomy, @taxon, max_level] do %>
+            <li class="<%= @dir %>">
+              <% has_children = taxonomy.taxons.count > 1 %>
+              <a href="<%= seo_url(taxonomy.taxons.first) %>" class="">
+                <%= t(taxonomy.name.parameterize.underscore.downcase, scope: 'taxonomies') %>
+              </a>
+              <%= taxons_tree(taxonomy.root, @taxon, max_level) %>
+            </li>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <li class="d-none d-block-sm border-top <%= @dir %>">
+        <a href="#" class="">
+          <i class="fa fa-globe fa-lg" aria-hidden="true"></i>
+          <%= t('home.language') %>
+        </a>
+        <ul class="">
+          <%= render 'spree/shared/locale_selector' %>
+        </ul>
+      </li>
+      <li class="d-none d-block-sm <%= @dir %>">
+        <a href="#" class="">
+          <i class="fa fa-map-marker fa-lg" aria-hidden="true"></i>
+          <%= t('home.country') %>
+        </a>
+        <ul class="">
+          <% Spree::Store.find_each do |store| %>
+            <li><a href="//<%= store.url %>"><%= t(store.cart_tax_country_iso, scope: 'nav.country') %></a></li>
+          <% end %>
+        </ul>
+      </li>
+
+    </ul>
+  </nav>

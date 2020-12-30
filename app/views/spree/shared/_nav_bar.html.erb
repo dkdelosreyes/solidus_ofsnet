@@ -1,9 +1,43 @@
-<nav id="top-nav-bar" class="columns ten">
-  <ul id="nav-bar" class="inline" data-hook>
-    <%= render 'spree/shared/locale_selector' %>
-    <%= render 'spree/shared/login_bar_items' %>
-    <li id="search-bar" data-hook>
-      <%= render partial: 'spree/shared/search' %>
+<div class="col-lg-8" dir="<%= @dir %>">
+  <div class="header-contact">
+    <ul>
+      <li>
+        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+        <%= t('pages.email') %>
+      </li>
+      <li>
+        <i class="fa fa-whatsapp" aria-hidden="true"></i>
+        <%= t('pages.whatsapp') %>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="col-lg-4 text-right" dir="<%= @dir %>">
+  <ul class="header-dropdown">
+
+    <li class="onhover-dropdown mobile-locale">
+      <i class="fa fa-globe fa-lg" aria-hidden="true"></i>
+      <ul class="onhover-show-div">
+        <%= render 'spree/shared/locale_selector' %>
+      </ul>
+    </li>
+
+    <li class="onhover-dropdown mobile-country">
+      <i class="fa fa-map-marker fa-lg" aria-hidden="true"></i>
+      <ul class="onhover-show-div">
+        <% Spree::Store.find_each do |store| %>
+          <li><a href="//<%= store.url %>"><%= t(store.cart_tax_country_iso, scope: 'nav.country') %></a></li>
+        <% end %>
+      </ul>
+    </li>
+
+    <li class="onhover-dropdown mobile-home d-none d-block-sm">
+      <a href="<%= url_for(spree.root_path) %>" class=""><i class="fa fa-home fa-lg" aria-hidden="true"></i></a>
+    </li>
+
+    <li class="onhover-dropdown mobile-account">
+      <i class="fa fa-user fa-lg" aria-hidden="true"></i>
+      <%= render 'spree/shared/login_bar_items' %>
     </li>
   </ul>
-</nav>
+</div>

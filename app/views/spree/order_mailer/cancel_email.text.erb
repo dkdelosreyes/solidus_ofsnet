@@ -1,0 +1,8 @@
+<%= t('spree.order_number', number: @order.number) %>
+
+<%= t('.instructions') %>
+
+============================================================
+<%= t('.order_summary_canceled') %>
+============================================================
+<%= render partial: 'spree/shared/mailers/order_details', locals: { order: @order } %>
