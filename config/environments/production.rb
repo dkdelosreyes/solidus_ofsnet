@@ -46,6 +46,20 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :amazon
 
+  # Paperclip configs for AWS S3
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :preserve_files => true,
+    :s3_host_name => 's3.ap-south-1.amazonaws.com',
+    :s3_credentials => {
+      :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'],
+      :s3_region => ENV['AWS_REGION']
+    },
+    :path => ':class/:attachment/:id_partition/:style/:filename', # Not working
+    :bucket => ENV['AWS_S3_BUCKET_NAME']
+  }
+
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
   # config.action_cable.url = 'wss://example.com/cable'
@@ -127,17 +141,4 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
-
-  config.paperclip_defaults = {
-    :storage => :s3,
-    :preserve_files => true,
-    :s3_host_name => 's3.ap-south-1.amazonaws.com',
-    :s3_credentials => {
-      :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
-      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'],
-      :s3_region => ENV['AWS_REGION']
-    },
-    :path => ':class/:attachment/:id_partition/:style/:filename',
-    :bucket => ENV['AWS_S3_BUCKET_NAME']
-  }
 end
