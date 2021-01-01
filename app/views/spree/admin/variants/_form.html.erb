@@ -75,12 +75,13 @@
         </div>
       <% end %>
 
-      <div class="col-3">
+      <!-- OFS Custom: I intentionally removed the cost price field here. coz its confusing -->
+      <!-- <div class="col-3">
         <div class="field" data-hook="cost_price">
-          <%= f.label :cost_price %>
-          <%= render "spree/admin/shared/number_with_currency", f: f, amount_attr: :cost_price, currency_attr: :cost_currency %>
+          <%= f.label :cost_price if false %>
+          <%= render "spree/admin/shared/number_with_currency", f: f, amount_attr: :cost_price, currency_attr: :cost_currency if false %>
         </div>
-      </div>
+      </div> -->
 
       <div class="col-3">
         <div class="field" data-hook="tax_category">
