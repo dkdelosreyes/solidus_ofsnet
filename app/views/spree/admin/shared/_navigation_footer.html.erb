@@ -21,7 +21,7 @@
 
     <% if respond_to? :spree_logout_path %>
       <li data-hook="user-logout-link">
-        <%= link_to spree_logout_path do %>
+        <%= link_to spree_logout_path, method: Devise.sign_out_via do %>
           <i class='fa fa-sign-out'></i>
           <%= t('spree.logout') %>
         <% end %>
