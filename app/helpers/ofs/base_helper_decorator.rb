@@ -54,18 +54,5 @@ module Ofs
         Spree::Core::ProductFilters.send(filter_name) if Spree::Core::ProductFilters.respond_to?(filter_name)
       end.compact
     end
-
-    def ofs_datepicker_field_value(date, with_time: false)
-      date_tmp = date || Time.now
-
-      format = if with_time
-        t('spree.date_picker.format_with_time', default: '%Y/%m/%d %H:%M')
-      else
-        t('spree.date_picker.format', default: '%Y/%m/%d')
-      end
-
-      l(date_tmp, format: format)
-    end
-
   end
 end
