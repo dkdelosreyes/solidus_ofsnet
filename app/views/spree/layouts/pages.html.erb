@@ -5,100 +5,13 @@
 <!--[if IE 9 ]>    <html class="ie ie9" lang="<%= I18n.locale %>"> <![endif]-->
 <!--[if gt IE 9]><!--><html lang="<%= I18n.locale %>"><!--<![endif]-->
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="OneFabShop is your number 1 fabulous shop where you can find exclusive AUTHENTIC designers items, from bags to accessories at a very reasonable price">
-  <meta name="keywords" content="onefabshop">
-  <meta name="author" content="onefabshop">
-
-  <title><%= yield(:page_title) %></title>
-
-  <%= favicon_link_tag 'ofs.ico' %>
-
-  <!--Google font-->
-  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
-
-  <!-- <%= stylesheet_link_tag 'spree/frontend/all', media: 'screen' %> -->
-  <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= csrf_meta_tags %>
-  <%= javascript_include_tag 'spree/frontend/all' %>
-  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
-  <![endif]-->
-
+  <%= render partial: 'spree/shared/head' %>
 </head>
 <body >
 
-  <header id="sticky" class="fixed">
-    <div class="mobile-fix-option"></div>
-    <div class="top-header">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8" dir="<%= @dir %>">
-            <div class="header-contact">
-              <ul>
-                <li>
-                  <i class="fa fa-envelope-o" aria-hidden="true"></i>
-                  <%= t('pages.email') %>
-                </li>
-                <li>
-                  <i class="fa fa-phone" aria-hidden="true"></i>
-                  <%= t('pages.phone') %>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <%= render partial: 'spree/shared/header' %>
 
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12">
-
-          <div class="main-menu" dir="<%= @dir %>">
-            <div class="menu-left">
-              <div class="brand-logo">
-                <a href="<%= url_for(spree.root_path) %>"><img src="<%= asset_pack_path 'media/images/ofs/ofslogo.png' %>" class="img-fluid blur-up lazyload" alt=""></a>
-              </div>
-            </div>
-
-            <div class="menu-right pull-right">
-              <div>
-                <%= render partial: 'spree/shared/taxonomies' %>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- breadcrumb start -->
-  <div class="breadcrumb-section">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="page-title">
-            <h2><%= yield(:page_title) %></h2>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <nav aria-label="breadcrumb" class="theme-breadcrumb">
-
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="<%= url_for spree.root_path %>">home</a></li>
-              <li class="breadcrumb-item active" aria-current="page"><%= yield(:page_title) %></li>
-            </ol>
-          </nav>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- breadcrumb end -->
+  <%= render partial: 'spree/shared/breadcrumb' %>
 
   <section class="blog-detail-page section-b-space ratio2_3">
     <div class="container">

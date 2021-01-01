@@ -415,7 +415,7 @@
   text-align: right;
 }
 
-/* Terms */
+/* Static Pages */
 ol.numbered-list, .trix-content ol {
   li {
     display: list-item;
@@ -429,6 +429,15 @@ ol.numbered-list, .trix-content ol {
   .trix-content {
     color: #777777;
     line-height: 1.8;
+
+    figure {
+      text-align: center;
+      img {
+        max-width: 100%;
+        max-height: 70vh;
+        margin-bottom: 20px;
+      }
+    }
   }
 }
 
