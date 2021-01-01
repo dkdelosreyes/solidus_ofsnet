@@ -6,7 +6,7 @@
 require("@rails/activestorage").start()
 require("channels")
 
-// require("trix")
-// require("@rails/actiontext")
+require("trix")
+require("@rails/actiontext")
 
-// import 'stylesheets/admin-application.scss';
+import 'stylesheets/admin-application.scss';
