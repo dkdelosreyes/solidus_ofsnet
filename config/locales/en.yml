@@ -156,6 +156,10 @@ en:
     not_found: Page Not Found
     internal_error: Something Went Wrong
 
+  pagination:
+    first: First
+    last: Last
+
   spree:
     i18n:
       available_locales: Available Locales

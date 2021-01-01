@@ -7,8 +7,8 @@
     per_page:      number of items to fetch per page
     remote:        data-remote
 -%>
-<li class="page-item <%= 'active disabled' if current_page %>">
-  <% if current_page %>
+<li class="page-item <%= 'active disabled' if page.current? %>">
+  <% if page.current? %>
     <a class="page-link" href="#"><%= page %></a>
   <% else %>
     <%= link_to_unless page.current?, page, url, {remote: remote, rel: page.rel, class: 'page-link'} %>
