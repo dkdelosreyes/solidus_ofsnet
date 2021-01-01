@@ -10,3 +10,5 @@
 //= require_tree .
 //= require spree/backend/solidus_paypal_commerce_platform
 //= require spree/backend/solidus_user_roles
+//= require spree/backend/flatpickr
+//= require spree/backend/solidus_sale_prices

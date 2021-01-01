@@ -8,9 +8,5 @@ module Spree::PriceDecorator
     end
   end
 
-  def on_sale?
-    false
-  end
-
   Spree::Price.prepend self
 end

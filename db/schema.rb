@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_01_173013) do
+ActiveRecord::Schema.define(version: 2021_01_01_183550) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -794,6 +794,22 @@ ActiveRecord::Schema.define(version: 2021_01_01_173013) do
     t.index ["role_id"], name: "index_spree_roles_users_on_role_id"
     t.index ["user_id", "role_id"], name: "index_spree_roles_users_on_user_id_and_role_id", unique: true
     t.index ["user_id"], name: "index_spree_roles_users_on_user_id"
+  end
+
+  create_table "spree_sale_prices", id: :serial, force: :cascade do |t|
+    t.integer "price_id"
+    t.decimal "value", precision: 10, scale: 2, null: false
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.boolean "enabled"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+    t.decimal "calculated_price", precision: 10, scale: 2
+    t.index ["deleted_at"], name: "index_spree_sale_prices_on_deleted_at"
+    t.index ["price_id", "start_at", "end_at", "enabled"], name: "index_active_sale_prices_for_price"
+    t.index ["price_id"], name: "index_sale_prices_for_price"
+    t.index ["start_at", "end_at", "enabled"], name: "index_active_sale_prices_for_all_variants"
   end
 
   create_table "spree_shipments", id: :serial, force: :cascade do |t|

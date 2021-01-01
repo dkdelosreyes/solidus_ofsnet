@@ -34,6 +34,7 @@ gem 'solidus_paypal_commerce_platform'
 gem 'solidus_sitemap', github: 'solidusio-contrib/solidus_sitemap'
 gem 'solidus_static_content'
 gem 'solidus_user_roles', github: 'boomerdigital/solidus_user_roles'
+gem 'solidus_sale_prices', github: 'solidusio-contrib/solidus_sale_prices'
 
 gem 'routing-filter', '~> 0.6.0'
 gem 'awesome_print'
