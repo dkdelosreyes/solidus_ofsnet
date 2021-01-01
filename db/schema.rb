@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_30_215717) do
+ActiveRecord::Schema.define(version: 2021_01_01_173013) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -439,6 +439,13 @@ ActiveRecord::Schema.define(version: 2020_12_30_215717) do
     t.index ["source_id", "source_type"], name: "index_spree_payments_on_source_id_and_source_type"
   end
 
+  create_table "spree_permission_sets", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.string "set"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "spree_preferences", id: :serial, force: :cascade do |t|
     t.text "value"
     t.string "key"
@@ -763,6 +770,13 @@ ActiveRecord::Schema.define(version: 2020_12_30_215717) do
     t.boolean "mutable", default: true
     t.datetime "created_at", precision: 6
     t.datetime "updated_at", precision: 6
+  end
+
+  create_table "spree_role_permissions", id: :serial, force: :cascade do |t|
+    t.integer "role_id"
+    t.integer "permission_set_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "spree_roles", id: :serial, force: :cascade do |t|

@@ -9,3 +9,4 @@
 //= require spree/frontend
 //= require_tree .
 //= require spree/frontend/solidus_paypal_commerce_platform
+//= require spree/frontend/solidus_user_roles

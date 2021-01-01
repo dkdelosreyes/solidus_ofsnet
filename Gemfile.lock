@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/boomerdigital/solidus_user_roles.git
+  revision: a4133ce71766d3b1decf67e8082d9d74924f4419
+  specs:
+    solidus_user_roles (1.2.2)
+      solidus_core (>= 1.0.0, < 3)
+      solidus_support (~> 0.5)
+
+GIT
   remote: https://github.com/solidusio-contrib/solidus_sitemap.git
   revision: 56f0010dea2ecfe3487d182db2d980b72b3093fc
   specs:
@@ -473,6 +481,7 @@ DEPENDENCIES
   solidus_paypal_commerce_platform
   solidus_sitemap!
   solidus_static_content
+  solidus_user_roles!
   spring
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)
