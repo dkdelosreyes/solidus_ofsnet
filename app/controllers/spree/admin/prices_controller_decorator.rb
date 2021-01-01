@@ -17,6 +17,7 @@ module Spree::Admin
     end
 
     def set_store_currencies
+      @setCurrencyByCountry = true
       @available_currencies = []
       Spree::Store.pluck(:default_currency).each do |default_currency|
         id, _ = Money::Currency.table.find { |key, currency| currency[:iso_code] == default_currency }

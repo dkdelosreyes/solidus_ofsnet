@@ -14,16 +14,17 @@
         <%= ::Money::Currency.find(currency).iso_code %>
       </span>
     </div>
-  <% else %>
+
+  <!-- OFS Custom for product price selection -->
+  <% elsif @setCurrencyByCountry %>
     <%= f.hidden_field currency_attr %>
     <div class="input-group-append">
       <span id="price_currency_text" class="input-group-text number-with-currency-addon" data-currency="<%= currency %>">
       </span>
     </div>
 
-    <!-- currencies = @available_currencies.present? ? @available_currencies : Spree::Config.available_currencies.map(&:iso_code)
-
-    f.select currency_attr, currencies, {selected: Spree::Config.currency}, {required: required, class: 'number-with-currency-select', disabled: true} -->
-
+  <% else %>
+    <% currencies = @available_currencies.present? ? @available_currencies : Spree::Config.available_currencies.map(&:iso_code) %>
+    <%= f.select currency_attr, currencies, {selected: Spree::Config.currency}, {required: required, class: 'number-with-currency-select'} %>
   <% end %>
 </div>

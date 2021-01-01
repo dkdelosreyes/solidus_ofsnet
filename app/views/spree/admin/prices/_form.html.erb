@@ -17,7 +17,9 @@
           <%= f.field_hint :country %>
           <% active_countries = @store_country || available_countries(restrict_to_zone: nil) %>
           <%= f.select :country_iso,
-                      options_for_select(active_countries.map {|p| [p.name, p.iso, { 'data-currency' => @country_currency[p.iso] }]}),
+                      options_for_select(
+                        active_countries.map {|p| [p.name, p.iso, { 'data-currency' => @country_currency[p.iso] }]},
+                        f.object.country_iso),
                       { include_blank: t(:any_country, scope: [:spree, :admin, :prices]) },
                       { class: 'custom-select fullwidth', disabled: !f.object.new_record?, 'data-currency' => @default_currency }
           %>
