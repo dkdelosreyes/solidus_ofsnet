@@ -26,6 +26,7 @@
 
 /public/assets
 /public/spree
+/public/sitemap.xml.gz
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.

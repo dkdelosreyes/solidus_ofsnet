@@ -1,5 +1,6 @@
 # See https://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
 User-agent: *
+Sitemap: https://onefabshop.net/sitemap.xml.gz
 Disallow: /checkout
 Disallow: /cart
 Disallow: /orders
@@ -7,3 +8,7 @@ Disallow: /user
 Disallow: /account
 Disallow: /api
 Disallow: /password
+Disallow: /pages
+Disallow: /country
+Disallow: /callbacks
+Disallow: /pay
