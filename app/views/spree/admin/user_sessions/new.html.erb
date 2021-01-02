@@ -1,15 +1,17 @@
 <% if flash[:alert] %>
-  <div class="flash errors"><%= flash[:alert] %></div>
+  <div class="flash error"><%= flash[:alert] %></div>
 <% end %>
 
 <% if flash[:recaptcha_error] %>
-  <div class="flash errors"><%= flash[:recaptcha_error] %></div>
+  <div class="flash error"><%= flash[:recaptcha_error] %></div>
 <% end %>
 
 <% @body_id = 'login' %>
 <div id="existing-customer">
   <h6><%= I18n.t('spree.admin_login') %></h6>
   <div data-hook="login">
+
+    <% if ENV['ALLOW_MANUAL_ADMIN_LOGIN'] %>
     <%= form_for Spree::User.new, as: :spree_user, url: spree.admin_create_new_session_path do |f| %>
       <div id="password-credentials">
         <p>
@@ -29,9 +31,15 @@
       <%= render partial: 'spree/shared/recaptcha', locals: { action: 'admin_login' } %>
 
       <p><%= f.submit I18n.t('spree.login'), class: 'btn btn-primary mt-3', tabindex: 4 %></p>
+
     <% end %>
     <%= I18n.t('spree.or') %>
-    <%= link_to I18n.t('spree.forgot_password'), spree.admin_recover_password_path %>
+    <%= link_to I18n.t('spree.forgot_password'), spree.admin_recover_password_path, class: 'd-block' %>
+
+    <% end %>
+
+    <%= link_to I18n.t('devise.login_via_gmail'), '/auth/google_oauth2', class: 'btn btn-primary mt-5' %>
+
   </div>
 </div>
 <div data-hook="login_extras"></div>

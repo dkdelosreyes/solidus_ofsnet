@@ -24,5 +24,9 @@ Rails.application.routes.draw do
   get '/422', to: 'errors#unacceptable'
   get '/500', to: 'errors#internal_error'
 
+  devise_scope :spree_user do
+    get '/auth/google_oauth2/callback', to: 'spree/admin/omniauth_callbacks#google_oauth'
+  end
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

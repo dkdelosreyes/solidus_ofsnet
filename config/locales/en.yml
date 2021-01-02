@@ -180,3 +180,8 @@ en:
     admin:
       prices:
         any_country: United Arab Emirates (Default)
+
+  devise:
+    login_via_gmail: Login via Gmail
+    failure:
+      unauthorized: Unauthorized email - %{email}. Please login using an authorized account.
