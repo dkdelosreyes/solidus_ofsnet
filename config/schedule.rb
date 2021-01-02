@@ -25,5 +25,5 @@ end
 
 # Every 3am on monday
 every '0 3 * * MON' do
- rake '-s sitemap:refresh'
+ rake '-s tmp:clear'
 end
