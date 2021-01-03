@@ -25,62 +25,60 @@
             <div class="tab-content" >
 
               <% @root_taxons.each_with_index do |taxon, index| %>
-                <% cache "#{taxon.updated_at}-#{current_store.url}" do %>
-                  <div class="tab-pane fade <%= index == 0 && 'show active' %>" id="<%= taxon.permalink %>" role="tabpanel" aria-labelledby="<%= taxon.permalink %>-tab">
+                <div class="tab-pane fade <%= index == 0 && 'show active' %>" id="<%= taxon.permalink %>" role="tabpanel" aria-labelledby="<%= taxon.permalink %>-tab">
 
-                    <% if taxon.products.empty? %>
-                      <div class="w-100 text-center">
-                        <h6><%= t('spree.no_products_found') %></h6>
-                      </div>
+                  <% if taxon.products.empty? %>
+                    <div class="w-100 text-center">
+                      <h6><%= t('spree.no_products_found') %></h6>
+                    </div>
 
-                    <% else %>
-                      <div class="row product-tab <%= @dir %>">
-                        <% taxon.products.limit(4).each do |product| %>
-                          <% url = spree.product_path(product, taxon_id: taxon.try(:id)) %>
-                          <% price = product.price_for(current_pricing_options, false) %>
-                          <% money = price.try!(:money) %>
-                          <!-- TODO: make it work with image_pack_path -->
-                          <% image = product.images.any? ? product.images.first.attachment.url(:small) : asset_pack_path('media/images/ofs/products/placeholder-1.jpg') %>
-                          <div class="tab-box">
-                            <div class="product-box2">
-                              <div class="media">
-                                <a href="<%= url %>"><img
-                                    class="img-fluid blur-up lazyload"
-                                    src="<%= image %>" alt=""></a>
-                                <div class="media-body align-self-center">
-                                  <div class="rating"><i class="fa fa-star"></i> <i
-                                      class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                      class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-                                  <a href="<%= url %>">
-                                    <h6><%= product.name %></h6>
-                                  </a>
-                                  <h4>
-                                    <%= "#{money.to_d} #{selected_pricing_options.currency}" if money.present? %>
-                                    <br />
-                                    <del><%= "#{price.original_price} #{selected_pricing_options.currency}" if price && price.on_sale? %></del>
-                                  </h4>
-                                  <!-- <ul class="color-variant">
-                                    <li class="bg-light0"></li>
-                                    <li class="bg-light1"></li>
-                                    <li class="bg-light2"></li>
-                                  </ul> -->
-                                </div>
+                  <% else %>
+                    <div class="row product-tab <%= @dir %>">
+                      <% taxon.products.limit(4).each do |product| %>
+                        <% url = spree.product_path(product, taxon_id: taxon.try(:id)) %>
+                        <% price = product.price_for(current_pricing_options, false) %>
+                        <% money = price.try!(:money) %>
+                        <!-- TODO: make it work with image_pack_path -->
+                        <% image = product.images.any? ? product.images.first.attachment.url(:small) : asset_pack_path('media/images/ofs/products/placeholder-1.jpg') %>
+                        <div class="tab-box">
+                          <div class="product-box2">
+                            <div class="media">
+                              <a href="<%= url %>"><img
+                                  class="img-fluid blur-up lazyload"
+                                  src="<%= image %>" alt=""></a>
+                              <div class="media-body align-self-center">
+                                <div class="rating"><i class="fa fa-star"></i> <i
+                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+                                    class="fa fa-star"></i> <i class="fa fa-star"></i></div>
+                                <a href="<%= url %>">
+                                  <h6><%= product.name %></h6>
+                                </a>
+                                <h4>
+                                  <%= "#{money.to_d} #{selected_pricing_options.currency}" if money.present? %>
+                                  <br />
+                                  <del><%= "#{price.original_price} #{selected_pricing_options.currency}" if price && price.on_sale? %></del>
+                                </h4>
+                                <!-- <ul class="color-variant">
+                                  <li class="bg-light0"></li>
+                                  <li class="bg-light1"></li>
+                                  <li class="bg-light2"></li>
+                                </ul> -->
                               </div>
                             </div>
                           </div>
-                        <% end %>
-                      </div>
-                      <div class="text-center mt-5">
-                        <a href="<%= url_for(nested_taxons_path(taxon)) %>" class="btn btn-outline" tabindex="0">
-                          <%= t('buttons.view_more') %>
-                        </a>
-                      </div>
+                        </div>
+                      <% end %>
+                    </div>
+                    <div class="text-center mt-5">
+                      <a href="<%= url_for(nested_taxons_path(taxon)) %>" class="btn btn-outline" tabindex="0">
+                        <%= t('buttons.view_more') %>
+                      </a>
+                    </div>
 
-                    <% end %>
-                    <!-- END else -->
+                  <% end %>
+                  <!-- END else -->
 
-                  </div>
-                <% end %>
+                </div>
               <% end %>
               <!-- END @root_taxons -->
 
