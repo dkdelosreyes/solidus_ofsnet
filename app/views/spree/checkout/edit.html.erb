@@ -1,6 +1,6 @@
 <% order_confirm_state = @order.state == 'confirm' %>
 
-<div class="checkout-page w-100">
+<div class="col-12 checkout-page w-100">
   <div id="checkout" class="checkout-form">
 
     <%= render partial: 'spree/shared/error_messages', locals: { target: @order } %>

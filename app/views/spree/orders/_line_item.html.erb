@@ -18,7 +18,7 @@
       <% end %>
     </td>
     <td>
-      <h2><%= "#{line_item.single_money.to_d} #{line_item.currency}" %></h2>
+      <span class="font-weight-bold"><%= "#{line_item.single_money.to_d} #{line_item.currency}" %></span>
     </td>
     <td>
       <div class="qty-box">
@@ -29,7 +29,7 @@
     </td>
     <td><a id="delete_<%= dom_id(line_item) %>" href="#" class="delete icon"><i class="ti-close"></i></a></td>
     <td>
-      <h2 class="td-color"><%= "#{line_item.amount} #{line_item.currency}" unless line_item.quantity.nil? %></h2>
+      <span class="td-color"><%= "#{line_item.amount} #{line_item.currency}" unless line_item.quantity.nil? %></span>
     </td>
   </tr>
 <% end %>

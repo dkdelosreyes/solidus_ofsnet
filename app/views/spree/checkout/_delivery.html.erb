@@ -7,47 +7,28 @@
     <div id="methods">
       <%= form.fields_for :shipments do |ship_form| %>
 
-        <div class="shipment">
+        <div class="shipment mb-3 container">
           <h4><%= t('spree.package_from') %> <strong><%= ship_form.object.stock_location.name %></strong></h4>
-
-          <div class="row product-order-detail pt-3">
-            <div class="col-3"></div>
-            <div class="col-3 order_detail">
-              <div>
-                <h4><%= t('spree.item') %></h4>
-              </div>
-            </div>
-            <div class="col-3 order_detail">
-              <div>
-                <h4><%= t('spree.qty') %></h4>
-              </div>
-            </div>
-            <div class="col-3 order_detail">
-              <div>
-                <h4><%= t('spree.price') %></h4>
-              </div>
-            </div>
-          </div>
 
           <% ship_form.object.manifest.each do |item| %>
             <% image = item.variant.gallery.images.first || item.variant.product.gallery.images.first || item.variant.product %>
             <div class="row product-order-detail pb-1">
-              <div class="col-3"><img src="<%= image.attachment.url(:mini)%>" alt="" class="img-fluid blur-up lazyload"></div>
-              <div class="col-3 order_detail">
+              <div class="col-md-2 col-4"><img src="<%= image.attachment.url(:mini)%>" alt="" class="img-fluid blur-up lazyload"></div>
+              <div class="col-md-10 col-8 order_detail">
                 <div>
-                  <h5><%= item.variant.name %></h5>
+                  <h5>
+                    <%= t('spree.item') %>: <%= item.variant.name %>
+                    <br />
+                    <%= t('spree.qty') %>: <%= item.quantity %>
+                  </h5>
                 </div>
               </div>
-              <div class="col-3 order_detail">
+              <!-- Hiding price in delivery checkout due to wrong price in PH store -->
+              <!-- <div class="col-3 order_detail">
                 <div>
-                  <h5><%= item.quantity %></h5>
+                  <h5><%# "#{item.variant.price} #{currency}" %></h5>
                 </div>
-              </div>
-              <div class="col-3 order_detail">
-                <div>
-                  <h5><%= "#{item.variant.price} #{currency}" %></h5>
-                </div>
-              </div>
+              </div> -->
             </div>
           <% end %>
 
@@ -55,10 +36,14 @@
           <ul class="radios shipping-methods">
             <% ship_form.object.shipping_rates.each do |rate| %>
               <li class="shipping-method d-block">
-                <label>
-                  <%= ship_form.radio_button :selected_shipping_rate_id, rate.id %>
-                  <span class="rate-name"><%= rate.name %></span>
-                  <span class="rate-cost"><%= "#{rate.cost} #{currency}" %></span>
+                <label class="w-100">
+                  <div class="row">
+                    <div class="rate-name col-8">
+                      <%= ship_form.radio_button :selected_shipping_rate_id, rate.id %>
+                      <%= rate.name %>
+                    </div>
+                    <div class="rate-cost font-weight-bold col-4 text-right"><%= "#{rate.cost} #{currency}" %></div>
+                  </div>
                 </label>
               </li>
             <% end %>
@@ -72,43 +57,39 @@
           <h4><%= t('spree.unshippable_items') %></h4>
 
           <div class="row product-order-detail pt-3">
-            <div class="col-3"></div>
-            <div class="col-3 order_detail">
+            <div class="col-md-2 col-4"></div>
+            <div class="col-md-10 col-8 order_detail">
               <div>
                 <h4><%= t('spree.item') %></h4>
               </div>
             </div>
-            <div class="col-3 order_detail">
+            <!-- Hiding price in delivery checkout due to wrong price in PH store -->
+            <!-- <div class="col-3 order_detail">
               <div>
-                <h4><%= t('spree.qty') %></h4>
+                <h4><%# t('spree.price') %></h4>
               </div>
-            </div>
-            <div class="col-3 order_detail">
-              <div>
-                <h4><%= t('spree.price') %></h4>
-              </div>
-            </div>
+            </div> -->
           </div>
 
           <% @differentiator.missing.each do |variant, quantity| %>
             <% image = variant.gallery.images.first || variant.product.gallery.images.first || variant.product %>
             <div class="row product-order-detail pb-1">
-              <div class="col-3"><img src="<%= image.attachment.url(:mini)%>" alt="" class="img-fluid blur-up lazyload"></div>
-              <div class="col-3 order_detail">
+              <div class="col-md-2 col-4"><img src="<%= image.attachment.url(:mini)%>" alt="" class="img-fluid blur-up lazyload"></div>
+              <div class="col-md-10 col-8 order_detail">
                 <div>
-                  <h5><%= variant.name %></h5>
+                  <h5>
+                    <%= t('spree.item') %>: <%= variant.name %>
+                    <br />
+                    <%= t('spree.qty') %>: <%= quantity %>
+                  </h5>
                 </div>
               </div>
-              <div class="col-3 order_detail">
+              <!-- Hiding price in delivery checkout due to wrong price in PH store -->
+              <!-- <div class="col-3 order_detail">
                 <div>
-                  <h5><%= quantity %></h5>
+                  <h5><%# "#{variant.price} #{currency}" %></h5>
                 </div>
-              </div>
-              <div class="col-3 order_detail">
-                <div>
-                  <h5><%= "#{variant.price} #{currency}" %></h5>
-                </div>
-              </div>
+              </div> -->
             </div>
           <% end %>
         </div>

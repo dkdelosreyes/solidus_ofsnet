@@ -32,53 +32,56 @@
       <% end %>
 
       <div class="total-sec">
-        <ul>
-          <li><%= t('spree.subtotal') %> <span><%= "#{order.item_total} #{currency}" %></span></li>
+        <div>
+          <div class="row mb-2">
+            <div class="col-9"><b><%= t('spree.subtotal') %></b></div>
+            <div class="col-3 text-right"><%= "#{order.item_total} #{currency}" %></div>
+          </div>
 
           <% if order.line_item_adjustments.exists? %>
             <% if order.line_item_adjustments.promotion.eligible.exists? %>
               <% order.line_item_adjustments.promotion.eligible.group_by(&:label).each do |label, adjustments| %>
-                <li>
-                  <%= t('spree.promotion') %>: <strong><%= label %></strong>
-                  <span class="count"><%= "#{adjustments.sum(&:amount)} #{currency}" %></span></span>
-                </li>
+                <div class="row mb-2">
+                  <div class="col-9"><b><%= t('spree.promotion') %>:</b> <span><%= label %></span></div>
+                  <div class="col-3 text-right"><%= "#{adjustments.sum(&:amount)} #{currency}" %></div>
+                </div>
               <% end %>
             <% end %>
           <% end %>
 
           <% order.shipments.group_by { |s| s.selected_shipping_rate.name }.each do |name, shipments| %>
-            <li>
-              <%= t('spree.shipping') %>: <strong><%= name %></strong>
-              <span class="count"><%= "#{shipments.sum(&:total_before_tax)} #{currency}" %></span></span>
-            </li>
+            <div class="row mb-2">
+              <div class="col-9"><b><%= t('spree.shipping') %>:</b> <span><%= name %></span></div>
+              <div class="col-3 text-right"><%= "#{shipments.sum(&:total_before_tax)} #{currency}" %></div>
+            </div>
           <% end %>
 
           <% if order.all_adjustments.tax.exists? %>
             <% order.all_adjustments.tax.group_by(&:label).each do |label, adjustments| %>
-              <li>
-                <%= t('spree.tax') %>: <strong><%= label %></strong>
-                <span class="count"><%= "#{adjustments.sum(&:amount)} #{currency}" %></span></span>
-              </li>
+              <div class="row mb-2">
+                <div class="col-9"><b><%= t('spree.tax') %>:</b> <span><%= label %></span></div>
+                <div class="col-3 text-right"><%= "#{adjustments.sum(&:amount)} #{currency}" %></div>
+              </div>
             <% end %>
           <% end %>
 
           <% if order.total_applicable_store_credit > 0.0 %>
-            <li>
-              <%= t('spree.store_credit.store_credit') %>
-              <span class="count"><%= "#{order.total_applicable_store_credit} #{currency}" %></span></span>
-            </li>
+            <div class="row mb-2">
+              <div class="col-9"><b><%= t('spree.store_credit.store_credit') %></b></div>
+              <div class="col-3 text-right"><%= "#{order.total_applicable_store_credit} #{currency}" %></div>
+            </div>
           <% end %>
 
           <% if order.adjustments.eligible.exists? %>
             <% order.adjustments.eligible.each do |adjustment| %>
             <% next if (adjustment.source_type == 'Spree::TaxRate') and (adjustment.amount == 0) %>
-              <li>
-                <%= adjustment.label %>
-                <span class="count"><%= "#{adjustment.amount} #{currency}" %></span></span>
-              </li>
+              <div class="row mb-2">
+                <div class="col-9"><b><%= adjustment.label %></b></div>
+                <div class="col-3 text-right"><%= "#{adjustment.amount} #{currency}" %></div>
+              </div>
             <% end %>
           <% end %>
-        </ul>
+        </div>
       </div>
       <div class="final-total">
         <h3><%= t('spree.order_total') %> <span><%= "#{order.order_total_after_store_credit} #{currency}" %></span></h3>
