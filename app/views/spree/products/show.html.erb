@@ -5,7 +5,7 @@
 <meta property="og:type"        content="website" />
 <meta property="og:title"       content="<%= @product.name %>" />
 <meta property="og:description" content="<%= description %>" />
-<meta property="og:image"       content="<%= image_url @product.gallery.images.first.url(:product) %>" />
+<meta property="og:image"       content="<%= image_url @product.gallery.images.first.url(:product) if @product.gallery.images.any? %>" />
 
 <!-- Images -->
 <div class="col-lg-1 col-sm-2 col-xs-12">

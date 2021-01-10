@@ -9,7 +9,12 @@
       <% order.line_items.each do |item| %>
         <% image = item.variant.gallery.images.first || item.variant.product.gallery.images.first || item.variant.product %>
         <div class="row product-order-detail">
-          <div class="col-3"><img src="<%= image.attachment.url(:small)%>" alt="" class="img-fluid blur-up lazyload"></div>
+          <div class="col-3">
+            <%= link_to(render('spree/shared/image',
+                 image: (item.variant.gallery.images.first || item.variant.product.gallery.images.first),
+                 size: :small,
+                 class: 'img-fluid blur-up lazyload'), item.variant.product) %>
+          </div>
           <div class="col-3 order_detail">
             <div>
               <h4><%= t('tables.item') %></h4>

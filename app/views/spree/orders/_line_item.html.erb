@@ -3,10 +3,9 @@
 <%= order_form.fields_for :line_items, line_item do |item_form| %>
   <tr class="line-item">
     <td>
-      <a href="<%= product_path(variant.product) %>">
-        <% image = variant.gallery.images.first || variant.product.gallery.images.first || variant.product %>
-        <img src="<%= image.attachment.url(:small)  %>" alt="">
-      </a>
+      <%= link_to(render('spree/shared/image',
+         image: (variant.gallery.images.first || variant.product.gallery.images.first),
+         size: :small), variant.product) %>
     </td>
     <td>
       <a href="<%= product_path(variant.product) %>"><%= line_item.name %></a>

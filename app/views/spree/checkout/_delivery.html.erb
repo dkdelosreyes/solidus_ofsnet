@@ -13,7 +13,12 @@
           <% ship_form.object.manifest.each do |item| %>
             <% image = item.variant.gallery.images.first || item.variant.product.gallery.images.first || item.variant.product %>
             <div class="row product-order-detail pb-1">
-              <div class="col-md-2 col-4"><img src="<%= image.attachment.url(:mini)%>" alt="" class="img-fluid blur-up lazyload"></div>
+              <div class="col-md-2 col-4">
+                <%= render 'spree/shared/image',
+                    image: (item.variant.gallery.images.first || item.variant.product.gallery.images.first),
+                    size: :mini,
+                    options: { class: 'img-fluid blur-up lazyload' } %>
+              </div>
               <div class="col-md-10 col-8 order_detail">
                 <div>
                   <h5>
@@ -74,7 +79,12 @@
           <% @differentiator.missing.each do |variant, quantity| %>
             <% image = variant.gallery.images.first || variant.product.gallery.images.first || variant.product %>
             <div class="row product-order-detail pb-1">
-              <div class="col-md-2 col-4"><img src="<%= image.attachment.url(:mini)%>" alt="" class="img-fluid blur-up lazyload"></div>
+              <div class="col-md-2 col-4">
+                <%= render 'spree/shared/image',
+                    image: (variant.gallery.images.first || variant.product.gallery.images.first),
+                    size: :mini,
+                    class: 'img-fluid blur-up lazyload' %>
+              </div>
               <div class="col-md-10 col-8 order_detail">
                 <div>
                   <h5>

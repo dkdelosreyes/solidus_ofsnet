@@ -177,6 +177,7 @@ en:
     hints:
       spree/product:
         embedded_video: Copy and paste the full iframe embed code from sites such as Instagram, Youtube or Vimeo.
+      shipping_rate_per_kilogram: Rate By Weight
     admin:
       prices:
         any_country: United Arab Emirates (Default)
@@ -185,3 +186,9 @@ en:
     login_via_gmail: Login via Gmail
     failure:
       unauthorized: Unauthorized email - %{email}. Please login using an authorized account.
+
+  activerecord:
+    models:
+      spree/calculator/shipping/by_weight:
+        one: Rate By Weight
+        other: Rate By Weight
