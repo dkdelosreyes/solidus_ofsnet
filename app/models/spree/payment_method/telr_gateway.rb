@@ -92,8 +92,8 @@ module Spree
         ivp_signature = Digest::SHA1.hexdigest ivp.join(':')
 
         bill_title   = ''
-        bill_fname   = order.bill_address.firstname
-        bill_sname   = order.bill_address.lastname
+        bill_fname   = order.bill_address.name
+        bill_sname   = order.bill_address.name
         bill_addr1   = order.bill_address.address1
         bill_addr2   = order.bill_address.address2
         bill_addr3   = ''
