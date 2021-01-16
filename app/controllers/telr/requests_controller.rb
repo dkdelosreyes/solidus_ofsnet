@@ -7,28 +7,34 @@ module Telr
 
     def pay
       current_url  = ENV['NGROK_HOST'] || current_store.url
+      telr_url     = Rails.application.routes.url_helpers.telr_transaction_url(host: current_url)
       redirect_url = spree.order_url(@order, host: current_url)
 
       redirect_to redirect_url, flash: { error: I18n.t('notices.already_paid', number: @order.number) } and return if @order.paid?
-
       redirect_to redirect_url, flash: { error: I18n.t('notices.already_completed', number: @order.number) } and return if @order.payments.telr_gateway.checkout.empty?
 
-      current_url  = ENV['NGROK_HOST'] || current_store.url
-      redirect_url = spree.order_url(@order, host: current_url)
-      telr_url     = Rails.application.routes.url_helpers.telr_transaction_url(host: current_url)
+      params = Spree::PaymentMethod::TelrGateway.request_params(@order, current_store, telr_url, redirect_url)
 
-      redirect_post(
-        ENV['TELR_GATEWAY_URL'],
-        params: Spree::PaymentMethod::TelrGateway.request_params(@order, current_store, telr_url, redirect_url),
-        options: {
-          method: :post,
-          authenticity_token: 'auto'
-        }
-      )
+      response = Faraday.post(ENV['TELR_GATEWAY_URL_V2'], params, { 'X-Accept' => 'application/json' })
+
+      body = JSON.parse response.body
+
+      if body['error'].present?
+        puts "OFSLOGS Telr::RequestsController pay: #{body}"
+        flash[:alert] = "#{body['error']['message']}. #{body['error']['note']}"
+        redirect_to spree.order_path(@order) and return
+      end
+
+      payment = @order.payments.telr_gateway.checkout.last
+      payment.external_reference!(body['order']['ref'])
+
+      redirect_to body['order']['url']
 
     rescue Spree::PaymentMethod::TelrGateway::UnsupportedCurrency => ex
-      puts "OFSLOGS Telr::RequestsController: #{ex}"
+      puts "OFSLOGS Telr::RequestsController pay: #{ex} - #{order.id}"
       redirect_to redirect_url, flash: { error: I18n.t('notices.unsupported_currency') }
+    rescue JSON::ParserError => ex
+      puts "OFSLOGS Telr::RequestsController pay: #{ex} - #{response.body}"
     end
 
     private

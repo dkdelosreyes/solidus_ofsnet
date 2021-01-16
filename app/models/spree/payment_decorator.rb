@@ -27,5 +27,9 @@ module Spree::PaymentDecorator
     self.save
   end
 
+  def external_reference!(reference)
+    self.update_column(:external_reference, reference)
+  end
+
   Spree::Payment.prepend self
 end

@@ -54,18 +54,28 @@ module Spree
       telr_url     = Rails.application.routes.url_helpers.telr_transaction_url(host: current_url)
       redirect_url = spree.order_url(@order, host: current_url)
 
-      redirect_post(
-        ENV['TELR_GATEWAY_URL'],
-        params: Spree::PaymentMethod::TelrGateway.request_params(order, current_store, telr_url, redirect_url),
-        options: {
-          method: :post,
-          authenticity_token: 'auto'
-        }
-      )
+      params = Spree::PaymentMethod::TelrGateway.request_params(order, current_store, telr_url, redirect_url)
+
+      response = Faraday.post(ENV['TELR_GATEWAY_URL_V2'], params, { 'X-Accept' => 'application/json' })
+
+      body = JSON.parse response.body
+
+      if body['error'].present?
+        puts "OFSLOGS Spree::CheckoutControllerDecorator redirect_post_to_telr: #{body} #{params}"
+        flash[:alert] = "#{body['error']['message']}. #{body['error']['note']}"
+        redirect_to spree.order_path(order) and return
+      end
+
+      payment = order.payments.telr_gateway.checkout.last
+      payment.external_reference!(body['order']['ref'])
+
+      redirect_to body['order']['url']
 
     rescue Spree::PaymentMethod::TelrGateway::UnsupportedCurrency => ex
-      puts "OFSLOGS Telr::RequestsController: #{ex}"
-      redirect_to redirect_url, notice: 'Unsupported currency'
+      puts "OFSLOGS Spree::CheckoutControllerDecorator redirect_post_to_telr: #{ex} - #{order.id}"
+      redirect_to redirect_url, flash: { alert: I18n.t('notices.unsupported_currency') }
+    rescue JSON::ParserError => ex
+      puts "OFSLOGS Spree::CheckoutControllerDecorator redirect_post_to_telr: #{ex} - #{response.body}"
     end
 
     def before_address
