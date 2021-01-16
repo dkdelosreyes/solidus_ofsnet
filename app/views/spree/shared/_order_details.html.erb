@@ -11,9 +11,9 @@
         <div class="row product-order-detail">
           <div class="col-3">
             <%= link_to(render('spree/shared/image',
-                 image: (item.variant.gallery.images.first || item.variant.product.gallery.images.first),
+                 image: image,
                  size: :small,
-                 class: 'img-fluid blur-up lazyload'), item.variant.product) %>
+                 options: { class: 'img-fluid blur-up lazyload'}), item.variant.product) %>
           </div>
           <div class="col-3 order_detail">
             <div>
