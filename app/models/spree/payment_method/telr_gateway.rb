@@ -9,8 +9,6 @@ module Spree
       preference :aed_to_php_exchange_rate, :decimal
       preference :supported_currency, :string
 
-      TELR_STORE_SECRET="L$vx5nV2Jf"
-
       def gateway_class
         self.class
       end
@@ -82,7 +80,7 @@ module Spree
         ivp_extra     = 'bill,return,xtra'
 
         ivp = []
-        ivp << Spree::PaymentMethod::TelrGateway::TELR_STORE_SECRET
+        ivp << ENV['TELR_STORE_SECRET']
         ivp << ENV['TELR_STORE_ID']
         ivp << ivp_amount
         ivp << ivp_currency
@@ -106,7 +104,7 @@ module Spree
         bill_email   = order.email
 
         bill = []
-        bill << Spree::PaymentMethod::TelrGateway::TELR_STORE_SECRET
+        bill << ENV['TELR_STORE_SECRET']
         bill << bill_title
         bill << bill_fname
         bill << bill_sname
@@ -130,7 +128,7 @@ module Spree
         return_cb_can  = telr_transaction_url
 
         ret = []
-        ret << Spree::PaymentMethod::TelrGateway::TELR_STORE_SECRET
+        ret << ENV['TELR_STORE_SECRET']
         ret << return_cb_auth
         ret << return_cb_decl
         ret << return_cb_can
@@ -144,7 +142,7 @@ module Spree
         xtra_fields         = 'xtra_payment_number'
 
         xtra = []
-        xtra << Spree::PaymentMethod::TelrGateway::TELR_STORE_SECRET
+        xtra << ENV['TELR_STORE_SECRET']
         xtra << xtra_payment_number
         xtra << xtra_fields
         xtra << ivp_signature
@@ -190,7 +188,7 @@ module Spree
 
       def callback_hash(params)
         cb = []
-        cb << Spree::PaymentMethod::TelrGateway::TELR_STORE_SECRET
+        cb << ENV['TELR_STORE_SECRET']
         cb << params[:auth_status]
         cb << params[:auth_code]
         cb << params[:auth_message]
@@ -212,7 +210,7 @@ module Spree
 
       def advice_service_hash(params)
         cb = []
-        cb << Spree::PaymentMethod::TelrGateway::TELR_STORE_SECRET
+        cb << ENV['TELR_STORE_SECRET']
         cb << params[:tran_store]
         cb << params[:tran_type]
         cb << params[:tran_class]
