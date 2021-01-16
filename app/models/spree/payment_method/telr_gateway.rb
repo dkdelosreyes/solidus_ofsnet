@@ -9,6 +9,8 @@ module Spree
       preference :aed_to_php_exchange_rate, :decimal
       preference :supported_currency, :string
 
+      AUTH_KEY='kwtqd~rtbT^KNCp3'
+
       def gateway_class
         self.class
       end
@@ -80,7 +82,7 @@ module Spree
         return {
           ivp_method:   'create',
           ivp_store:    ENV['TELR_STORE_ID'],
-          ivp_authkey:  'kwtqd~rtbT^KNCp3',
+          ivp_authkey:  Spree::PaymentMethod::TelrGateway::AUTH_KEY,
           ivp_amount:   ivp_amount,
           ivp_currency: ivp_currency,
           ivp_test:     ivp_test,
