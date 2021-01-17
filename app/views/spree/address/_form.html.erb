@@ -41,7 +41,6 @@
 
   <div class="field field-required" id=<%="#{address_id}country" %>>
     <%= form.label :country_id, t('spree.country') %>
-    <span class="text-muted"><%= t('forms.countries_auto_filtered')  %></span>
     <span id=<%="#{address_id}country-selection" %>>
       <%= form.collection_select :country_id, available_countries(restrict_to_zone: @zone_names), :id, :name, {},
           class: 'required',

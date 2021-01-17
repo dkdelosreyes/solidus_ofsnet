@@ -6,12 +6,11 @@ module Spree::CountryDecorator
     def base.available(restrict_to_zone: Spree::Config[:checkout_zone])
       checkout_zone = Spree::Zone.where(name: restrict_to_zone)
 
-      list = []
-      checkout_zone.find_each do |czone|
-        list += czone.country_list if czone.try(:kind) == 'country'
-      end
+      country_ids = Spree::ZoneMember.where(zone_id: checkout_zone).where(zoneable_type: 'Spree::Country').pluck(:zoneable_id)
 
-      list.any? ? list : all
+      return all if country_ids.empty?
+
+      Spree::Country.where(id: country_ids)
     end
   end
 
