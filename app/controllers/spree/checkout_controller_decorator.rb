@@ -85,7 +85,9 @@ module Spree
       @order.bill_address ||= Spree::Address.build_default
       @order.ship_address ||= Spree::Address.build_default if @order.checkout_steps.include?('delivery')
 
-      @store_country = Spree::Country.where(iso: Spree::Order.last.store.cart_tax_country_iso)
+      # @store_country = Spree::Country.all
+      # @store_country = Spree::Country.where(iso: Spree::Order.last.store.cart_tax_country_iso)
+      @zone_names = Spree::Zone.pluck(:name)
     end
 
     Spree::CheckoutController.prepend self

@@ -43,7 +43,7 @@
     <%= form.label :country_id, t('spree.country') %>
     <span class="text-muted"><%= t('forms.countries_auto_filtered')  %></span>
     <span id=<%="#{address_id}country-selection" %>>
-      <%= form.collection_select :country_id, @store_country, :id, :name, {},
+      <%= form.collection_select :country_id, available_countries(restrict_to_zone: @zone_names), :id, :name, {},
           class: 'required',
           autocomplete: address_type + ' country-name',
           required: true
