@@ -1,0 +1,17 @@
+<li>
+  <h6>
+    <%= live.facebook_page.name %>
+    <span class="text-muted font-weight-normal">
+      <%= t('live_selling.was_live') %>
+    </span>
+  </h6>
+  <p>
+    <small class="text-muted text-transform-none">
+      <%= live.creation_time.strftime("%B %d at %-l:%M%P") %>
+      <i class="fa fa-globe" aria-hidden="true"></i>
+    </small>
+  </p>
+  <div class="media mt-1 bg-true-black">
+    <iframe src="<%= live.video_plugin_url %>" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
+  </div>
+</li>

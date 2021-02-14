@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   get '/country', to: 'spree/home#country'
   post '/country', to: 'spree/home#country'
 
-  # resources :contact_forms, only: %w(create)
+  get 'live', action: :index, controller: 'lives'
   get 'contactus', action: :new, controller: 'contact_forms'
 
   namespace :telr do
@@ -29,5 +29,21 @@ Rails.application.routes.draw do
     get '/auth/google_oauth2/callback', to: 'spree/admin/omniauth_callbacks#google_oauth'
   end
 
+  namespace :services do
+    namespace :facebook do
+      get 'webhooks', to: 'webhooks#verify'
+      post 'webhooks', to: 'webhooks#interact'
+    end
+  end
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+end
+
+# Backend routes
+Spree::Core::Engine.routes.draw do
+  namespace :admin do
+    resources :facebook_pages do
+      get :debug_token
+    end
+  end
 end

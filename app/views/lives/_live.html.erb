@@ -1,0 +1,31 @@
+<div class="row blog-media">
+  <div class="col-xl-7">
+    <div class="blog-left text-center bg-true-black">
+      <iframe src="<%= live.video_plugin_url %>" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
+    </div>
+  </div>
+  <div class="col-xl-5">
+    <div class="blog-right">
+      <div>
+        <h4>
+          <div class="d-flex flex-row">
+            <span class="badge badge-theme mr-2 pt-3 text-uppercase"><%= t('taxonomies.live') %></span>
+            <span>
+              <%= live.facebook_page.name %>
+              <br>
+              <small class="text-muted text-transform-none">
+                <%= live.creation_time.strftime("%B %d at %-l:%M%P") %>
+                <i class="fa fa-globe" aria-hidden="true"></i>
+              </small>
+            </span>
+          </div>
+        </h4>
+
+        <p><%= simple_format(live.title) %></p>
+        <p class="mt-2">
+          <%= simple_format(live.description) %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

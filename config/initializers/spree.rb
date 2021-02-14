@@ -114,11 +114,11 @@ Spree::Backend::Config.configure do |config|
   # Uncomment and change the following configuration if you want to add
   # a new menu item:
   #
-  # config.menu_items << config.class::MenuItem.new(
-  #   [:section],
-  #   'icon-name',
-  #   url: 'https://solidus.io/'
-  # )
+  config.menu_items << config.class::MenuItem.new(
+    [:facebook],
+    'facebook',
+    url: 'facebook_pages'
+  )
 end
 
 Spree::Api::Config.configure do |config|

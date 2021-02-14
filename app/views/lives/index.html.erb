@@ -1,0 +1,49 @@
+<section class="contact-page pt-0 w-100">
+  <div class="container">
+
+    <section class="section-b-space blog-page ratio2_3 py-0 live-container">
+      <div class="container">
+        <div class="row">
+          <!--Blog sidebar start-->
+          <div class="col-xl-3 col-lg-4 col-md-5 live-vod">
+            <div class="blog-sidebar">
+              <div class="theme-card">
+                <h4><%= t('live_selling.recent_live') %></h4>
+
+                <% if @vod.any?  %>
+                  <ul class="recent-blog">
+                    <% @vod.each do |live| %>
+                      <%= render partial: 'vod', locals: { live: live } %>
+                    <% end %>
+                  </ul>
+                <% else %>
+                  <span class="text-muted"><%= t('live_selling.no_recent_lives') %></span>
+                <% end %>
+
+              </div>
+            </div>
+          </div>
+          <!--Blog sidebar start-->
+
+          <!--Blog List start-->
+          <div class="col-xl-9 col-lg-8 col-md-7 order-sec live-highlight">
+
+            <% if @lives.any?  %>
+              <% @lives.each do |live| %>
+                <%= render partial: 'live', locals: { live: live } %>
+              <% end %>
+            <% else %>
+
+              <span class="text-muted"><%= t('live_selling.no_recent_lives') %></span>
+
+            <% end %>
+          </div>
+          <!--Blog List start-->
+        </div>
+      </div>
+    </section>
+    <!-- Section ends -->
+
+  </div>
+</section>
+<!--Section ends-->

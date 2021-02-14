@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_16_164626) do
+ActiveRecord::Schema.define(version: 2021_02_13_183622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -214,6 +214,32 @@ ActiveRecord::Schema.define(version: 2021_01_16_164626) do
     t.integer "stock_location_id"
     t.datetime "created_at", precision: 6
     t.datetime "updated_at", precision: 6
+  end
+
+  create_table "spree_facebook_page_lives", force: :cascade do |t|
+    t.string "video_id"
+    t.integer "state", default: 0
+    t.integer "facebook_page_id"
+    t.datetime "creation_time"
+    t.jsonb "payload", default: {}
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["facebook_page_id"], name: "index_spree_facebook_page_lives_on_facebook_page_id"
+    t.index ["state"], name: "index_spree_facebook_page_lives_on_state"
+  end
+
+  create_table "spree_facebook_pages", force: :cascade do |t|
+    t.string "name"
+    t.string "facebook_page_id"
+    t.string "user_access_token"
+    t.string "page_access_token"
+    t.integer "user_id"
+    t.datetime "expired_at"
+    t.jsonb "payload", default: {}
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["facebook_page_id"], name: "index_spree_facebook_pages_on_facebook_page_id", unique: true
+    t.index ["user_id"], name: "index_spree_facebook_pages_on_user_id"
   end
 
   create_table "spree_inventory_units", id: :serial, force: :cascade do |t|

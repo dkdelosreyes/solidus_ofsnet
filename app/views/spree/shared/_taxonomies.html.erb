@@ -10,7 +10,16 @@
         </div>
       </li>
       <li>
-        <a href="<%= url_for(spree.root_path) %>" class=""><%= t('spree.home') %></a>
+        <a href="<%= url_for(spree.root_path) %>"><%= t('spree.home') %></a>
+      </li>
+
+      <li>
+        <a href="<%= Rails.application.routes.url_helpers.live_path %>">
+          <span class="badge badge-theme text-uppercase">
+            <%= t('taxonomies.live') %>
+          </span>
+          <%= t('taxonomies.selling') %>
+        </a>
       </li>
 
       <% if @taxonomies.present? %>
@@ -18,7 +27,7 @@
           <% cache [I18n.locale, taxonomy, @taxon, max_level] do %>
             <li class="<%= @dir %>">
               <% has_children = taxonomy.taxons.count > 1 %>
-              <a href="<%= seo_url(taxonomy.taxons.first) %>" class="">
+              <a href="<%= seo_url(taxonomy.taxons.first) %>">
                 <%= t(taxonomy.name.parameterize.underscore.downcase, scope: 'taxonomies') %>
               </a>
               <%= taxons_tree(taxonomy.root, @taxon, max_level) %>

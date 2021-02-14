@@ -63,6 +63,17 @@ html,body {
   background-image: linear-gradient(30deg, var(--theme-deafult) 50%, transparent 50%);
 }
 
+/* Badge */
+.badge-theme {
+  background-color: var(--theme-deafult);
+  color: white;
+}
+
+/* Text */
+.text-transform-none {
+  text-transform: none;
+}
+
 /* Sprites */
 .bg-mastercard {
   width: 54px; height: 34px;
@@ -291,6 +302,7 @@ html,body {
 }
 
 /* Background */
+.bg-true-black { background-color: black; }
 .bg-black { background-color: #222; }
 .bg-theme { background-color: var(--theme-deafult) }
 .bg-bag {
@@ -464,6 +476,57 @@ ol.numbered-list, .trix-content ol {
 /* Error pages */
 .error-section {
   padding: 50px 0 50px;
+}
+
+/* Live Page */
+.live-container {
+  .live-vod {
+    iframe {
+      width: auto;
+      height: 350px;
+      max-width: 100%;
+    }
+  }
+  .live-highlight {
+    iframe {
+      width: auto;
+      height: 530px;
+      max-width: 100%;
+    }
+
+    .blog-media {
+      .blog-right {
+        align-items: normal;
+        justify-content: left;
+      }
+    }
+  }
+
+  @media (max-width: 767px) {
+    .live-vod {
+      iframe {
+        height: 100vh;
+      }
+    }
+    .live-highlight {
+      iframe {
+        height: 100vh;
+      }
+    }
+  }
+
+  @media (max-width: 425px) {
+    .live-vod {
+      iframe {
+        height: 90vh;
+      }
+    }
+    .live-highlight {
+      iframe {
+        height: 90vh;
+      }
+    }
+  }
 }
 
 /* Payments */

@@ -10,6 +10,8 @@ en:
     watches: Watches
     shoes: Shoes
     accessories: Accessories
+    live: Live
+    selling: Selling
   home:
     country: Country
     language: Language
@@ -43,6 +45,10 @@ en:
     details: Product Details
     share: Share It
     video: Video
+  live_selling:
+    was_live: was live
+    recent_live: Recent Live
+    no_recent_lives: No recent lives
   footer:
     newsletter:
       title: KNOW IT ALL FIRST!
@@ -177,10 +183,28 @@ en:
     hints:
       spree/product:
         embedded_video: Copy and paste the full iframe embed code from sites such as Instagram, Youtube or Vimeo.
+      spree/facebook_page:
+        expired_at: "Facebook only allows maximum of 2 months of subscription validity. After that, you need to resubscribe the page. Also note that changing facebook account password will auto-expire the subscription even before the validity period."
       shipping_rate_per_kilogram: Rate By Weight
     admin:
       prices:
         any_country: United Arab Emirates (Default)
+      tab:
+        facebook: Facebook Pages
+      facebook_pages:
+        link_facebook_pages: Link Facebook Pages
+        linked_facebook_pages: Linked Facebook Pages
+        facebook_page_name: Facebook Page Name
+        live_videos: Live Videos
+        name: Name
+        expired_at: Expired At
+        linked_by: Linked by
+        subscribed: Subscribed
+        subscribe: Subscribe
+        unsubscribe: Unsubscribe
+        unsubscribe_confirm: Unsubscribing a page will unlink live videos coming from this page. Do you wish to proceed?
+        no_page_selected: No page selected. Make sure you clicked the checkbox beside the facebook page to link them
+        insufficient_permission: Insufficient Permissions. Make sure you are an admin or a moderator of this page.
 
   devise:
     login_via_gmail: Login via Gmail

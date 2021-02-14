@@ -1,0 +1,172 @@
+<% admin_breadcrumb(plural_resource_name(Spree::FacebookPage)) %>
+
+<% content_for :page_actions do %>
+  <% if can?(:create, Spree::FacebookPage) %>
+    <li>
+      <li>
+        <button id="LinkPage" class="btn btn-primary">
+          <%= t('spree.admin.facebook_pages.link_facebook_pages') %>
+        </button>
+      </li>
+    </li>
+  <% end %>
+<% end %>
+
+<table class="mb-5 table-warning border" id='PendingPages' data-hook style="display: none">
+  <colgroup>
+    <col style="width: 50%" />
+    <col style="width: 50%" />
+  </colgroup>
+  <thead>
+    <tr data-hook="zones_header">
+      <th><%= t('spree.admin.facebook_pages.facebook_page_name') %></th>
+      <th class="actions"><%= t('spree.admin.facebook_pages.live_videos') %></th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+
+<% if @facebook_pages.any? %>
+  <h6><%= t('spree.admin.facebook_pages.linked_facebook_pages') %></h6>
+  <table>
+    <colgroup>
+      <col style="width: 45%" />
+      <col style="width: 20%" />
+      <col style="width: 20%" />
+      <col style="width: 15%" />
+    </colgroup>
+    <thead>
+      <tr data-hook="zones_header">
+        <th><%= t('spree.admin.facebook_pages.name') %></th>
+        <th><%= t('spree.admin.facebook_pages.expired_at') %> <a title="<%= t('spree/facebook_page.expired_at', scope: 'spree.hints') %>" class="fa fa-info-circle with-tip"  href="#"></a></th>
+        <th><%= t('spree.admin.facebook_pages.linked_by') %></th>
+        <th class="actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @facebook_pages.each do |page| %>
+        <tr>
+          <td><%= page.name %></td>
+          <td><%= page.expired_at.strftime("%m/%d/%Y %H:%M:%S %Z") %></td>
+          <td><%= page.user.email %></td>
+          <td class="actions">
+            <% if can?(:destroy, page) %>
+              <%= link_to_delete page, { name: t('spree.admin.facebook_pages.unsubscribe'), confirm: t('spree.admin.facebook_pages.unsubscribe_confirm'), class: 'btn btn-danger px-2' } %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<script>
+
+  Spree.ready(function() {
+
+    (function(d, s, id) {
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "https://connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : <%= @appid %>,
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v9.0'
+      });
+
+      FB.AppEvents.logPageView();
+    };
+
+    document.getElementById('LinkPage').addEventListener('click', function(e) {
+      e.preventDefault();
+      //do the login
+      FB.login(function(response) {
+        if (response.authResponse) {
+          //user just authorized your app
+          FB.getLoginStatus(function(response) {
+            if (response.status === 'connected') {
+              console.log('getLoginStatus connected', response);
+              listPages(response);
+            }
+          });
+        }
+      }, {scope: 'pages_read_engagement,pages_show_list,pages_manage_metadata', return_scopes: true});
+    }, false);
+
+    function listPages(response) {
+      Spree.ajax({
+        url: 'https://graph.facebook.com/v9.0/' + response.authResponse.userID + '/accounts',
+        type: "get", //send it through get method
+        data: {
+          access_token: response.authResponse.accessToken
+        },
+        success: function(response) {
+          console.log('list-pages-success', response);
+          if (response.data && response.data.length > 0) {
+            renderRows(response.data);
+          } else {
+            show_flash('error', 'No page selected. Make sure you clicked the checkbox beside the facebook page to link them');
+          }
+        },
+        error: function(xhr) {
+          console.log('list-pages-error', xhr);
+          show_flash('error', 'Failed');
+        }
+      });
+    }
+
+    function renderRows(data) {
+      let rows = data.map( page => {
+        let htmlrow = `<td>${page.name}</td>`;
+
+        if (page.tasks.includes('MODERATE')) {
+          htmlrow += `<td class="actions"><button data-id="${page.id}" data-name="${page.name}" data-id="${page.id}" data-access-token="${page.access_token}" class="btn btn-success subscribe-btn">Subscribe</button></td>`;
+        } else {
+          htmlrow += `<td class="actions"><span class="text-danger">Insufficient Permissions. Make sure you are an admin or a moderator of this page.</span></td>`;
+        }
+
+        return `<tr>${htmlrow}</tr>`;
+      });
+
+      $('#PendingPages').show();
+      $('#PendingPages tbody').append(rows);
+    }
+
+    $(document.body).on('click','.subscribe-btn', function(e) {
+      let btn = $(this);
+      btn.attr("disabled", true);
+
+      Spree.ajax({
+        url: Spree.pathFor('admin/facebook_pages'),
+        type: "post", //send it through get method
+        data: {
+          id:           $(this).data('id'),
+          name:         $(this).data('name'),
+          access_token: $(this).data('accessToken')
+        },
+        success: function(response) {
+          console.log('Subscribe success', response);
+          show_flash('success', response.message);
+
+          btn.text("Subscribed");
+          btn.removeClass('btn-success').addClass('btn-light');
+        },
+        error: function(xhr) {
+          console.log('subscribe-error', xhr);
+          show_flash('error', xhr.responseJSON.message);
+
+          btn.text("Subscribed");
+          btn.removeClass('btn-success').addClass('btn-light');
+        }
+      });
+    });
+  });
+</script>
