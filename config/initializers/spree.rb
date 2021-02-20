@@ -117,7 +117,8 @@ Spree::Backend::Config.configure do |config|
   config.menu_items << config.class::MenuItem.new(
     [:facebook],
     'facebook',
-    url: 'facebook_pages'
+    condition: -> { can?(:admin, Spree::FacebookPage) },
+    url: :admin_facebook_pages_path
   )
 end
 
