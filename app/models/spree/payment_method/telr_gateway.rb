@@ -101,7 +101,8 @@ module Spree
           bill_region:  '',
           bill_country: order.bill_address.country.iso,
           bill_zip:     order.bill_address.zipcode,
-          bill_email:   order.email
+          bill_email:   order.email,
+          bill_phone:   order.bill_address.phone
         }
       end
     end
