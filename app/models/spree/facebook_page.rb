@@ -25,7 +25,7 @@ module Spree
       JSON.parse(response.body)
 
     rescue JSON::ParserError => ex
-      puts "OFSLOGS Spree::FacebookPage#subscribe_live_videos: facebook_page_id: #{facebook_page_id}, page_access_token: #{page_access_token}, response: #{response}, ex: #{ex}"
+      puts "OFSLOGS Spree::FacebookPage#subscribe: facebook_page_id: #{facebook_page_id}, page_access_token: #{page_access_token}, response: #{response}, ex: #{ex}"
       return false
     end
 
@@ -39,7 +39,7 @@ module Spree
       JSON.parse(response.body)
 
     rescue JSON::ParserError => ex
-      puts "OFSLOGS Spree::FacebookPage#unsubscribe_app: facebook_page_id: #{facebook_page_id}, response: #{response}, ex: #{ex}"
+      puts "OFSLOGS Spree::FacebookPage#unsubscribe: facebook_page_id: #{facebook_page_id}, response: #{response}, ex: #{ex}"
       return false
     end
 
@@ -56,7 +56,24 @@ module Spree
       parsed_response['data']
 
     rescue JSON::ParserError => ex
-      puts "OFSLOGS Spree::FacebookPage#subscribe_live_videos: facebook_page_id: #{facebook_page_id}, page_access_token: #{page_access_token}, response: #{response}, ex: #{ex}"
+      puts "OFSLOGS Spree::FacebookPage#debug_token: facebook_page_id: #{facebook_page_id}, page_access_token: #{page_access_token}, response: #{response}, ex: #{ex}"
+      return false
+    end
+
+    def live_videos
+      params = {
+        fields: 'id',
+        access_token: self.user_access_token
+      }
+
+      response = Faraday.get("https://graph.facebook.com/v9.0/#{facebook_page_id}/live_videos", params)
+
+      parsed_response = JSON.parse(response.body)
+
+      parsed_response['data']
+
+    rescue JSON::ParserError => ex
+      puts "OFSLOGS Spree::FacebookPage#live_videos: facebook_page_id: #{facebook_page_id}, response: #{response}, ex: #{ex}"
       return false
     end
 
