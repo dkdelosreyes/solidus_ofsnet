@@ -1,7 +1,7 @@
 module Spree::Admin
   class FacebookPagesController < ResourceController
 
-    before_action :set_facebook_page, only: %w(destroy)
+    before_action :set_facebook_page, only: %w(destroy show sync_videos debug_token)
 
     def index
       @facebook_pages = Spree::FacebookPage.all
@@ -48,6 +48,7 @@ module Spree::Admin
     end
 
     def show
+      @lives = @facebook_page.facebook_page_live.order('creation_time desc')
     end
 
     def destroy
@@ -67,10 +68,22 @@ module Spree::Admin
       # TODO
     end
 
+    def sync_videos
+      active, removed = @facebook_page.sync_live_videos
+
+      flash[:success] = I18n.t('spree.admin.facebook_pages.sync_success', live_count: active, remove_count: removed)
+      redirect_to action: :show, id: @facebook_page.id
+
+    rescue => ex
+      puts "OFSLOGS Spree::Admin::FacebookPagesController#sync_videos: facebook_page_id: #{@facebook_page.id}, ex: #{ex}"
+      flash[:error] = 'Latest videos failed to sync'
+      redirect_to action: :show, id: @facebook_page.id
+    end
+
     private
 
     def set_facebook_page
-      @facebook_page = Spree::FacebookPage.find params[:id]
+      @facebook_page = Spree::FacebookPage.find params[:id] || params[:facebook_page_id]
     end
   end
 end

@@ -8,9 +8,11 @@ module Spree
 
     store_accessor :payload, :title, :embed_html, :description
 
+    scope :today, -> { where(creation_time: Date.today.all_day) }
+
     def get_info
       params = {
-        fields: 'video,title,description,creation_time',
+        fields: 'video,title,status,description,creation_time',
         access_token: facebook_page.user_access_token
       }
 

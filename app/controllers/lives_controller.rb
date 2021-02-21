@@ -7,9 +7,8 @@ class LivesController < Spree::StoreController
 
     return if !stale? last_modified: Spree::FacebookPageLive.maximum(:updated_at)
 
-    # temp
-    @lives = Spree::FacebookPageLive.live.order('creation_time desc').limit(1)
-    @vod   = Spree::FacebookPageLive.vod.order('creation_time desc').limit(1)
+    @lives = Spree::FacebookPageLive.live.order('creation_time desc')
+    @vod   = Spree::FacebookPageLive.vod.order('creation_time desc').limit(3)
 
     if @lives.empty? && @vod.any?
       arr_vod = @vod.to_a

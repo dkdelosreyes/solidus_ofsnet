@@ -205,6 +205,12 @@ en:
         unsubscribe_confirm: Unsubscribing a page will unlink live videos coming from this page. Do you wish to proceed?
         no_page_selected: No page selected. Make sure you clicked the checkbox beside the facebook page to link them
         insufficient_permission: Insufficient Permissions. Make sure you are an admin or a moderator of this page.
+        sync_success: "Latest videos synced successfully. Latest videos: %{live_count}, Removed: %{remove_count}"
+      facebook_page_lives:
+        sync_from_page: Sync Today's Videos from %{page}
+        title_desc: Title/Description
+        creation_time: Creation Time
+        destroy: Deleting this video will remove it from the website. Do you wish to proceed?
 
   devise:
     login_via_gmail: Login via Gmail

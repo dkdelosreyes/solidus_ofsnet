@@ -62,7 +62,7 @@ module Spree
 
     def live_videos
       params = {
-        fields: 'id',
+        fields: 'video,title,status,description,creation_time',
         access_token: self.user_access_token
       }
 
@@ -75,6 +75,48 @@ module Spree
     rescue JSON::ParserError => ex
       puts "OFSLOGS Spree::FacebookPage#live_videos: facebook_page_id: #{facebook_page_id}, response: #{response}, ex: #{ex}"
       return false
+    end
+
+    def sync_live_videos
+      latest_ids = []
+      removed_count = 0
+
+      live_videos.each do |live_video|
+
+        next if !Date.parse(live_video['creation_time']).today?
+
+        live = Spree::FacebookPageLive.find_or_initialize_by(video_id: live_video['id']) do |vid|
+          vid.facebook_page = self
+        end
+
+        live.state         = Spree::FacebookPageLive.states.include?(live_video['status'].downcase) ? live_video['status'].downcase : 'unpublished'
+        live.creation_time = live_video['creation_time']
+        live.payload       = live_video
+
+        latest_ids << live.video_id if live.save
+      end
+
+      stale_videos = facebook_page_live.where.not(video_id: latest_ids)
+      if stale_videos.any?
+        removed_count = stale_videos.count
+        stale_videos.destroy_all
+      end
+
+      [latest_ids.count, removed_count]
+    end
+
+    def remove_stale_videos
+      latest_ids = []
+      live_videos.each do |live_video|
+        next if !Date.parse(live_video['creation_time']).today?
+
+        latest_ids << live.video_id
+      end
+
+      stale_videos = facebook_page_live.where.not(video_id: latest_ids)
+      if stale_videos.any?
+        stale_videos.destroy_all
+      end
     end
 
     class << self

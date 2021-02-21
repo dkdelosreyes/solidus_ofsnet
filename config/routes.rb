@@ -44,6 +44,9 @@ Spree::Core::Engine.routes.draw do
   namespace :admin do
     resources :facebook_pages do
       get :debug_token
+      get :sync_videos
     end
+
+    resources :facebook_page_live, only: %w(destroy)
   end
 end

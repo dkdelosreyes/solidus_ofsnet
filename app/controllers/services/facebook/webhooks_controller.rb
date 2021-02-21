@@ -39,6 +39,9 @@ module Services
             live.get_info if live.new_record?
 
             if live.save
+
+              facebook_page.remove_stale_videos
+
               head :ok and return
             else
               puts "OFSLOGS Services::Facebook::WebhooksController#interact: #{event}, #{live.errors}"

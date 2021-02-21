@@ -1,0 +1,55 @@
+<% admin_breadcrumb(@facebook_page.name) %>
+
+<% content_for :page_actions do %>
+  <% if can?(:create, Spree::FacebookPage) %>
+    <li>
+      <li>
+        <%= link_to t('spree.admin.facebook_page_lives.sync_from_page', page: @facebook_page.name), admin_facebook_page_sync_videos_path(@facebook_page.id), class: "btn btn-primary" %>
+      </li>
+    </li>
+  <% end %>
+<% end %>
+
+<table>
+  <colgroup>
+    <col style="width: 45%" />
+    <col style="width: 20%" />
+    <col style="width: 20%" />
+    <col style="width: 15%" />
+  </colgroup>
+  <thead>
+    <tr data-hook="zones_header">
+      <th><%= t('spree.admin.facebook_page_lives.title_desc') %></th>
+      <th><%= t('spree.admin.facebook_page_lives.creation_time') %></th>
+      <th></th>
+      <th class="actions"></th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <% if @lives.any? %>
+      <% @lives.each do |live| %>
+        <tr>
+          <td>
+            <p><%= simple_format(live.title) %></p>
+            <p class="mt-2">
+              <%= simple_format(live.description) %>
+            </p>
+          </td>
+          <td><%= live.creation_time.strftime("%B %d at %-l:%M%P") %></td>
+          <td>
+            <iframe src="<%= live.video_plugin_url %>" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
+          </td>
+          <td class="actions">
+            <% if can?(:destroy, live) %>
+              <%= link_to_delete nil, { url: admin_facebook_page_live_path(id: live.id, method: :delete), confirm: t('spree.admin.facebook_page_lives.destroy'), class: 'btn btn-danger px-2' } %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+
+  </tbody>
+</table>
+
+

@@ -32,7 +32,8 @@
   <h6><%= t('spree.admin.facebook_pages.linked_facebook_pages') %></h6>
   <table>
     <colgroup>
-      <col style="width: 45%" />
+      <col style="width: 35%" />
+      <col style="width: 10%" />
       <col style="width: 20%" />
       <col style="width: 20%" />
       <col style="width: 15%" />
@@ -40,6 +41,7 @@
     <thead>
       <tr data-hook="zones_header">
         <th><%= t('spree.admin.facebook_pages.name') %></th>
+        <th>Today's Videos</th>
         <th><%= t('spree.admin.facebook_pages.expired_at') %> <a title="<%= t('spree/facebook_page.expired_at', scope: 'spree.hints') %>" class="fa fa-info-circle with-tip"  href="#"></a></th>
         <th><%= t('spree.admin.facebook_pages.linked_by') %></th>
         <th class="actions"></th>
@@ -48,10 +50,20 @@
     <tbody>
       <% @facebook_pages.each do |page| %>
         <tr>
-          <td><%= page.name %></td>
+          <td>
+            <u><%= link_to page.name, admin_facebook_page_path(page.id) %></u>
+          </td>
+          <td>
+            <%= page.facebook_page_live.count %>
+          </td>
           <td><%= page.expired_at.strftime("%m/%d/%Y %H:%M:%S %Z") %></td>
           <td><%= page.user.email %></td>
           <td class="actions">
+            <%= link_to_with_icon('podcast', 'Facebook Lives', admin_facebook_page_path(page.id), no_text: true) %>
+
+            <%= link_to_edit page, no_text: true, class: 'edit' if can?(:edit, page) %>
+              &nbsp;
+
             <% if can?(:destroy, page) %>
               <%= link_to_delete page, { name: t('spree.admin.facebook_pages.unsubscribe'), confirm: t('spree.admin.facebook_pages.unsubscribe_confirm'), class: 'btn btn-danger px-2' } %>
             <% end %>
