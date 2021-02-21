@@ -62,7 +62,7 @@ module Spree
 
     def live_videos
       params = {
-        fields: 'video,title,status,description,creation_time',
+        fields: 'video,title,status,description,creation_time,permalink_url',
         access_token: self.user_access_token
       }
 

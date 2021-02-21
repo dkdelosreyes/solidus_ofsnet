@@ -6,13 +6,13 @@ module Spree
 
     validates :video_id, presence: true, uniqueness: true
 
-    store_accessor :payload, :title, :embed_html, :description
+    store_accessor :payload, :title, :embed_html, :description, :permalink_url
 
     scope :today, -> { where(creation_time: Date.today.all_day) }
 
     def get_info
       params = {
-        fields: 'video,title,status,description,creation_time',
+        fields: 'video,title,status,description,creation_time,permalink_url',
         access_token: facebook_page.user_access_token
       }
 
