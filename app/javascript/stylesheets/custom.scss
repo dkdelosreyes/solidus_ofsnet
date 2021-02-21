@@ -117,24 +117,32 @@ html,body {
       display: none;
     }
     .mobile-home {
-      left: 13%;
+      left: 9%;
       width: 22px;
       margin-left: -1px;
       @include mobile_icon();
       i { font-size: 30px; }
     }
     .mobile-account {
-      left: 37%;
+      left: 32%;
       width: 22px;
       margin-left: -11px;
       @include mobile_icon();
       bottom: 24px;
       i { font-size: 22px; }
     }
+    .mobile-live {
+      left: 50%;
+      width: 22px;
+      margin-left: -11px;
+      @include mobile_icon();
+      bottom: 22px;
+      i { font-size: 22px; }
+    }
   }
   .main-menu .menu-right .icon-nav {
-    .mobile-search { right: 37%; }
-    .mobile-cart { right: 13%; }
+    .mobile-search { right: 27%; }
+    .mobile-cart { right: 9%; }
   }
   .onhover-dropdown:hover .onhover-show-div {
     top: unset;
@@ -298,7 +306,7 @@ html,body {
 
 /* Colors */
 .color-theme {
-  color: var(--theme-deafult);
+  color: var(--theme-deafult) !important;
 }
 
 /* Background */
