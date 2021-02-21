@@ -39,5 +39,9 @@ module Spree
     def public_video_id
       payload.dig('video', 'id')
     end
+
+    def watch_url
+      "https://www.facebook.com#{permalink_url}"
+    end
   end
 end

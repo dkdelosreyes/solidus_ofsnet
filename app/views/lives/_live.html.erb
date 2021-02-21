@@ -1,5 +1,9 @@
 <div class="row blog-media">
   <div class="col-xl-7">
+    <a href="<%= live.watch_url %>" class="btn btn-sm btn-outline mt-3 w-100 d-xl-none" target="_blank">
+      <i class="fa fa-tv fa-lg"></i>
+      <%= t('live_selling.watch_on_facebook') %>
+    </a>
     <div class="blog-left text-center bg-true-black">
       <iframe src="<%= live.video_plugin_url %>" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
     </div>
@@ -25,6 +29,12 @@
         <p class="mt-2">
           <%= simple_format(live.description) %>
         </p>
+
+        <a href="<%= live.watch_url %>" class="btn btn-sm btn-outline mt-3 d-none d-xl-block" target="_blank">
+          <i class="fa fa-tv fa-lg"></i>
+          <%= t('live_selling.watch_on_facebook') %>
+        </a>
+
       </div>
     </div>
   </div>

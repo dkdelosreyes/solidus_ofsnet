@@ -47,8 +47,9 @@ en:
     video: Video
   live_selling:
     was_live: was live
-    recent_live: Recent Live
+    recent_live: Recent Lives
     no_recent_lives: No recent lives
+    watch_on_facebook: Watch on Facebook
   footer:
     newsletter:
       title: KNOW IT ALL FIRST!
