@@ -8,7 +8,7 @@ module Spree::Admin
 
         head :ok and return
       else
-        render json: { message: "Deletion failed: #{facebook_page_live.errors}" }, status: :unprocessable_entity, layout: false and return
+        render json: { message: "Deletion failed: #{facebook_page_live.errors.full_messages.join(', ')}" }, status: :unprocessable_entity, layout: false and return
       end
     end
 

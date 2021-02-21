@@ -185,6 +185,7 @@ en:
         embedded_video: Copy and paste the full iframe embed code from sites such as Instagram, Youtube or Vimeo.
       spree/facebook_page:
         expired_at: "Facebook only allows maximum of 2 months of subscription validity. After that, you need to resubscribe the page. Also note that changing facebook account password will auto-expire the subscription even before the validity period."
+        expired_guide: "Click 'unsubscribe' then 'Link Facebook Pages' again to refresh validity."
       shipping_rate_per_kilogram: Rate By Weight
     admin:
       prices:

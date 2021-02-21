@@ -1,7 +1,7 @@
 module Spree::Admin
   class FacebookPagesController < ResourceController
 
-    before_action :set_facebook_page, only: %w(destroy show sync_videos debug_token)
+    before_action :set_facebook_page, only: %w(destroy edit update show sync_videos debug_token)
 
     def index
       @facebook_pages = Spree::FacebookPage.all
@@ -45,6 +45,13 @@ module Spree::Admin
     end
 
     def update
+      if @facebook_page.update(params_facebook_page)
+        flash[:success] = 'Updated successfully'
+        redirect_to action: :edit, id: @facebook_page.id
+      else
+        flash[:error] = "Update failed: errors: #{@facebook_page.errors.full_messages.join(', ')}"
+        render :edit
+      end
     end
 
     def show
@@ -84,6 +91,10 @@ module Spree::Admin
 
     def set_facebook_page
       @facebook_page = Spree::FacebookPage.find params[:id] || params[:facebook_page_id]
+    end
+
+    def params_facebook_page
+      params.require(:facebook_page).permit(:user_access_token, :page_access_token)
     end
   end
 end
