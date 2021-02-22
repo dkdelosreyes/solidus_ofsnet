@@ -29,6 +29,7 @@
 
     <% if @lives.any? %>
       <% @lives.each do |live| %>
+        <% next if live.permalink_url.blank? %>
         <tr>
           <td>
             <p><%= simple_format(live.title) %></p>

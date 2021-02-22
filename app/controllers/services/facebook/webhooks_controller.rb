@@ -44,7 +44,7 @@ module Services
 
               head :ok and return
             else
-              puts "OFSLOGS Services::Facebook::WebhooksController#interact: #{event}, #{live.errors}"
+              puts "OFSLOGS Services::Facebook::WebhooksController#interact: #{event}, #{live.errors.full_messages.join(', ')}"
               head :unprocessable_entity and return
             end
 

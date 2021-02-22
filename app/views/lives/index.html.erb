@@ -13,6 +13,7 @@
                 <% if @vod.any?  %>
                   <ul class="recent-blog">
                     <% @vod.each do |live| %>
+                      <% next if live.permalink_url.blank? %>
                       <%= render partial: 'vod', locals: { live: live } %>
                     <% end %>
                   </ul>
@@ -30,6 +31,7 @@
 
             <% if @lives.any?  %>
               <% @lives.each do |live| %>
+                <% next if live.permalink_url.blank? %>
                 <%= render partial: 'live', locals: { live: live } %>
               <% end %>
             <% else %>
