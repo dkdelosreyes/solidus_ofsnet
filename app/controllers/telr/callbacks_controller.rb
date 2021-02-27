@@ -20,7 +20,7 @@ module Telr
       head :ok
 
     rescue ActiveRecord::RecordNotFound => ex
-      puts "OFSLOGS Telr::CallbacksController: #{ex}"
+      Rails.application.log :error, controller: self, action: 'transaction', exception: ex
       head :not_found and return
     end
 
@@ -49,7 +49,7 @@ module Telr
         # when 'capture'
         # when 'revcapture'
         else
-          puts "OFSLOGS Telr::CallbacksController advice_service: #{params}"
+          Rails.application.log :info, message: 'unsupported telr tran_type', controller: self, action: 'advice_service', params: params
         end
       end
 
@@ -58,10 +58,10 @@ module Telr
       head :ok
 
     rescue ActiveRecord::RecordNotFound => ex
-      puts "OFSLOGS Telr::CallbacksController advice_service: #{ex} - #{params}"
+      Rails.application.log :error, controller: self, action: 'advice_service', params: params, exception: ex
       head :not_found and return
     rescue Telr::CallbacksController::ErrorTelrCheckoutPaymentNotFound => ex
-      puts "OFSLOGS Telr::CallbacksController advice_service: #{ex} - #{params}"
+      Rails.application.log :error, controller: self, action: 'advice_service', params: params, exception: ex
       head :not_found and return
     end
 

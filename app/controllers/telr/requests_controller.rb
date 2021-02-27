@@ -20,7 +20,8 @@ module Telr
       body = JSON.parse response.body
 
       if body['error'].present?
-        puts "OFSLOGS Telr::RequestsController pay: #{body}"
+        Rails.application.log :error, controller: Telr::RequestsController, action: 'pay', body: body
+
         flash[:alert] = "#{body['error']['message']}. #{body['error']['note']}"
         redirect_to spree.order_path(@order) and return
       end
@@ -31,10 +32,11 @@ module Telr
       redirect_to body['order']['url']
 
     rescue Spree::PaymentMethod::TelrGateway::UnsupportedCurrency => ex
-      puts "OFSLOGS Telr::RequestsController pay: #{ex} - #{order.id}"
+      Rails.application.log :error, controller: self, action: 'pay', order_id: order.id, exception: ex
+
       redirect_to redirect_url, flash: { error: I18n.t('notices.unsupported_currency') }
     rescue JSON::ParserError => ex
-      puts "OFSLOGS Telr::RequestsController pay: #{ex} - #{response.body}"
+      Rails.application.log :error, controller: self, response: response.body, exception: ex
     end
 
     private

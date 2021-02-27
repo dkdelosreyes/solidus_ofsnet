@@ -25,7 +25,7 @@ module Spree
       JSON.parse(response.body)
 
     rescue JSON::ParserError => ex
-      puts "OFSLOGS Spree::FacebookPage#subscribe: facebook_page_id: #{facebook_page_id}, page_access_token: #{page_access_token}, response: #{response}, ex: #{ex}"
+      Rails.application.log :error, controller: self, action: 'subscribe', facebook_page_id: facebook_page_id, page_access_token: self.page_access_token, response: response.body, exception: ex
       return false
     end
 
@@ -39,7 +39,7 @@ module Spree
       JSON.parse(response.body)
 
     rescue JSON::ParserError => ex
-      puts "OFSLOGS Spree::FacebookPage#unsubscribe: facebook_page_id: #{facebook_page_id}, response: #{response}, ex: #{ex}"
+      Rails.application.log :error, controller: Spree::FacebookPage, action: 'unsubscribe', facebook_page_id: facebook_page_id, response: response.body, exception: ex
       return false
     end
 
@@ -56,7 +56,7 @@ module Spree
       parsed_response['data']
 
     rescue JSON::ParserError => ex
-      puts "OFSLOGS Spree::FacebookPage#debug_token: facebook_page_id: #{facebook_page_id}, page_access_token: #{page_access_token}, response: #{response}, ex: #{ex}"
+      Rails.application.log :error, controller: self, action: 'debug_token', facebook_page_id: facebook_page_id, response: response.body, exception: ex
       return false
     end
 
@@ -73,7 +73,7 @@ module Spree
       parsed_response['data']
 
     rescue JSON::ParserError => ex
-      puts "OFSLOGS Spree::FacebookPage#live_videos: facebook_page_id: #{facebook_page_id}, response: #{response}, ex: #{ex}"
+      Rails.application.log :error, controller: self, action: 'live_videos', facebook_page_id: facebook_page_id, response: response.body, exception: ex
       return false
     end
 
@@ -105,12 +105,17 @@ module Spree
       [latest_ids.count, removed_count]
     end
 
+    # {"video"=>{"id"=>"1008953786175100"},
+    #  "status"=>"LIVE",
+    #  "creation_time"=>"2021-02-27T10:09:40+0000",
+    #  "permalink_url"=>"/107657781362671/videos/1008953786175100/",
+    #  "id"=>"119643886830727"}
     def remove_stale_videos
       latest_ids = []
       live_videos.each do |live_video|
         next if !Date.parse(live_video['creation_time']).today?
 
-        latest_ids << live.video_id
+        latest_ids << live_video['id']
       end
 
       stale_videos = facebook_page_live.where.not(video_id: latest_ids)
@@ -137,7 +142,7 @@ module Spree
         parsed_response['access_token']
 
       rescue JSON::ParserError => ex
-        puts "OFSLOGS Spree::FacebookPage#get_long_lived_token: short_lived_token: #{short_lived_token}, response: #{response}, ex: #{ex}"
+        Rails.application.log :error, controller: self, action: 'get_long_lived_token', short_lived_token: short_lived_token, response: response.body, exception: ex
         return false
       end
 
@@ -154,7 +159,7 @@ module Spree
         parsed_response['access_token']
 
       rescue JSON::ParserError => ex
-        puts "OFSLOGS Spree::FacebookPage#get_page_token: facebook_page_id: #{facebook_page_id}, user_access_token: #{user_access_token}, response: #{response}, ex: #{ex}"
+        Rails.application.log :error, controller: self, action: 'get_page_token', facebook_page_id: facebook_page_id, user_access_token: user_access_token, response: response.body, exception: ex
         return false
       end
 

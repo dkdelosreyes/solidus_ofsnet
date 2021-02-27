@@ -24,7 +24,7 @@ module Spree
       self.payload         = parsed_response
 
     rescue JSON::ParserError => ex
-      puts "OFSLOGS Spree::FacebookPage#subscribe_live_videos: facebook_page_id: #{facebook_page_id}, page_access_token: #{page_access_token}, response: #{response}, ex: #{ex}"
+      Rails.application.log :error, controller: self, action: 'subscribe_live_videos', facebook_page_id: facebook_page_id, response: response.body, exception: ex
       return false
     end
 

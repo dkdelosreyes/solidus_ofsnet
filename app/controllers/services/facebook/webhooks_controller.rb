@@ -19,7 +19,7 @@ module Services
         # todo: validate payload. https://developers.facebook.com/docs/graph-api/webhooks/getting-started
         # request.env['HTTP_X_HUB_SIGNATURE']
 
-        # puts "OFSLOGS Services::Facebook::WebhooksController #{params}"
+        # Rails.application.log :info, controller: self, action: 'interact', params: params
 
         params.fetch('entry', []).each do |entry|
 
@@ -44,7 +44,7 @@ module Services
 
               head :ok and return
             else
-              puts "OFSLOGS Services::Facebook::WebhooksController#interact: #{event}, #{live.errors.full_messages.join(', ')}"
+              Rails.application.log :error, controller: self, event: event, errors: live.errors.full_messages
               head :unprocessable_entity and return
             end
 
@@ -55,7 +55,7 @@ module Services
         head :ok
 
       rescue ActiveRecord::RecordNotFound => ex
-        puts "OFSLOGS Services::Facebook::WebhooksController ActiveRecord::RecordNotFound: #{params} #{ex}"
+        Rails.application.log :error, controller: self, params: params, exception: ex
         head :unprocessable_entity and return
       end
     end

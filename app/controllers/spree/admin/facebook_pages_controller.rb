@@ -82,7 +82,7 @@ module Spree::Admin
       redirect_to action: :show, id: @facebook_page.id
 
     rescue => ex
-      puts "OFSLOGS Spree::Admin::FacebookPagesController#sync_videos: facebook_page_id: #{@facebook_page.id}, ex: #{ex}"
+      Rails.application.log :error, controller: self, action: 'sync_videos', facebook_page_id: @facebook_page.id, exception: ex
       flash[:error] = 'Latest videos failed to sync'
       redirect_to action: :show, id: @facebook_page.id
     end

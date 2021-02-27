@@ -61,7 +61,8 @@ module Spree
       body = JSON.parse response.body
 
       if body['error'].present?
-        puts "OFSLOGS Spree::CheckoutControllerDecorator redirect_post_to_telr: #{body} #{params}"
+        Rails.application.log :error, controller: self, action: 'redirect_post_to_telr', params: params, body: body
+
         flash[:alert] = "#{body['error']['message']}. #{body['error']['note']}"
         redirect_to spree.order_path(order) and return
       end
@@ -72,10 +73,11 @@ module Spree
       redirect_to body['order']['url']
 
     rescue Spree::PaymentMethod::TelrGateway::UnsupportedCurrency => ex
-      puts "OFSLOGS Spree::CheckoutControllerDecorator redirect_post_to_telr: #{ex} - #{order.id}"
+      Rails.application.log :error, controller: self, action: 'redirect_post_to_telr', order_id: order.id, exception: ex
+
       redirect_to redirect_url, flash: { alert: I18n.t('notices.unsupported_currency') }
     rescue JSON::ParserError => ex
-      puts "OFSLOGS Spree::CheckoutControllerDecorator redirect_post_to_telr: #{ex} - #{response.body}"
+      Rails.application.log :error, controller: self, action: 'redirect_post_to_telr', response: response.body, exception: ex
     end
 
     def before_address
