@@ -38,14 +38,15 @@ module Services
 
             live.get_info if live.new_record?
 
-            if live.save
+
+            if !live.payload['error'] && live.save
 
               facebook_page.remove_stale_videos
 
               head :ok and return
             else
               Rails.application.log :error, controller: self, event: event, errors: live.errors.full_messages
-              head :unprocessable_entity and return
+              head :ok and return
             end
 
           end
