@@ -1,4 +1,27 @@
-# README
+# Solidus E-commerce Website
+
+## Description
+
+This project is an e-commerce website that allows users to browse products, add them to a shopping cart, and proceed with purchases. It includes user authentication, product management, and order processing.
+
+## Technologies Used
+
+- **Frameworks:**
+  - Ruby on Rails
+  - Bootstrap
+
+- **Frontend:**
+  - HTML
+  - CSS
+  - JavaScript
+
+- **Database:**
+  - PostgreSQL
+
+- **API**
+  - Telr payment gateway
+
+## Setup
 
 Here's a localhost setup guide to run this app on your machine:
 
